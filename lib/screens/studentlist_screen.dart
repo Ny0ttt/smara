@@ -146,7 +146,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                         snapshot.data[index]));
                               });
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text("No Data Available"),
                           );
                         }

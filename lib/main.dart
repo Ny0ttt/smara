@@ -1,7 +1,7 @@
 import 'package:education_app/dbHelper/mongodb.dart';
 import 'package:education_app/routes/route_helper.dart';
 // import 'package:education_app/screens/base_screen.dart';
-import 'package:education_app/screens/login_screen.dart';
+import 'package:education_app/screens/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: const BaseScreen(),
-      home: const UsersListScreen(),
+      home: const FirstLogin(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
     );

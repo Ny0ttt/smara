@@ -1,6 +1,7 @@
 import 'package:education_app/dbHelper/mongodb.dart';
 import 'package:education_app/models/users_modeltemporary.dart';
 import 'package:education_app/routes/route_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,9 @@ class _UsersListScreen extends State<UsersListScreen> {
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
                           var totalData = snapshot.data.length;
-                          print("Total Data" + totalData.toString());
+                          if (kDebugMode) {
+                            print("Total Data" + totalData.toString());
+                          }
                           return ListView.builder(
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
@@ -88,7 +91,7 @@ class _UsersListScreen extends State<UsersListScreen> {
                                         snapshot.data[index]));
                               });
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text("No Data Available"),
                           );
                         }
