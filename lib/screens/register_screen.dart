@@ -70,7 +70,6 @@ SingleChildScrollView(child:
               SizedBox(
                 height: 80,
               ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Row(
@@ -83,7 +82,6 @@ SingleChildScrollView(child:
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -208,7 +206,7 @@ SingleChildScrollView(child:
                 child: TextFormField(
                   controller: secretcode,
                   decoration: const InputDecoration(
-                    hintText: 'Secret Code',
+                    hintText: 'Role Registration Code',
                     hintStyle: TextStyle(fontSize: 20, color: Colors.grey),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     // labelText: "Student Transcript",

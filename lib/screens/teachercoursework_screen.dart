@@ -415,9 +415,7 @@ class _CourseworkList extends State<CourseworkList> {
                   // print(m.ObjectId.parse('${context.watch<UserProvider>().id}'.substring(10, 34)));
                   if (snapshot.hasData) {
                     var totalData = snapshot.data.length;
-                    // print("Total Data" + totalData.toString());
-                    print("snapshot data " + snapshot.data.toString());
-                    // print("All Data" + snapshot.data.toString());
+                    // print("snapshot data " + snapshot.data.toString());
                     return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {

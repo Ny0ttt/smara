@@ -526,7 +526,7 @@ class MongoDatabase {
 
     // try {
       final arrData0 =
-          await userCollection.find().toList();
+          await userCollection.find(where.sortBy('_id', descending: true)).toList();
 
       // List<CourseworkModel> relatedcourseworks = arrData0["assigneeslist"].map((assigneeslist) => assigneeslist["student"].map((student) { if(student["studentid"] == studentid.toString()){ return arrData0["_id"];}}));
       // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); return studentt; }); } ).toString());
@@ -572,7 +572,7 @@ class MongoDatabase {
 
     // try {
       final arrData0 =
-          await userCollection.find().toList();
+          await userCollection.find(where.sortBy('_id', descending: true)).toList();
 
       List<CourseworkModel> courseworks = arrData0
     .map((assigneeslist) {
@@ -610,7 +610,7 @@ class MongoDatabase {
 
     // try {
       final arrData0 =
-          await userCollection.find().toList();
+          await userCollection.find(where.sortBy('_id', descending: true)).toList();
 
       List<MaterialNoticeModel> courseworks = arrData0
     .map((assigneeslist) {
@@ -642,7 +642,7 @@ class MongoDatabase {
 
     // try {
       final arrData0 =
-          await userCollection.find().toList();
+          await userCollection.find(where.sortBy('_id', descending: true)).toList();
 
       List<MaterialNoticeModel> courseworks = arrData0
     .map((assigneeslist) {
