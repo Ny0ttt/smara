@@ -247,6 +247,7 @@ class AppBar extends StatelessWidget {
             children: [
               Text(
                 "Hello,\nGood Morning",
+                textScaler: const TextScaler.linear(0.8),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               CircleButton(
@@ -258,9 +259,34 @@ class AppBar extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const SearchTextFieldPlacehold(
-            placeholder: "",
-          )
+          //     const Center(
+          //   child: Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //       Text('You have pushed the button this many times:'),
+
+          //       /// Extracted as a separate widget for performance optimization.
+          //       /// As a separate widget, it will rebuild independently from [MyHomePage].
+          //       ///
+          //       /// This is totally optional (and rarely needed).
+          //       /// Similarly, we could also use [Consumer] or [Selector].
+          //       Name(),
+          //     ],
+          //   ),
+          // ),
+          Center(
+            child: Text(
+              // "Aly Zanaty",
+              // "{$context.watch<UserProvider>().name}",
+              '${context.watch<UserProvider>().nickname}',
+              key: const Key('counterState'),
+              textScaler: const TextScaler.linear(3.5),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+
+          // const SearchTextField()
         ],
       ),
     );

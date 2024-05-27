@@ -9,7 +9,7 @@ import '../constants/color.dart';
 import '../constants/icons.dart';
 import '../constants/size.dart';
 import 'featuerd_screen.dart';
-import 'uploaddata_screen.dart';
+import 'adminuploaddata_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);

@@ -4,13 +4,17 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class SelectMongodbData extends StatefulWidget {
+  final String title;
   final List<List<String>> items;
   // final List<String> items;
   // final Future<List<String>> items;
   final List<List<String>> selecteditems;
   // final List<String> selecteditems;
   const SelectMongodbData(
-      {Key? key, required this.items, required this.selecteditems})
+      {Key? key,
+      required this.items,
+      required this.selecteditems,
+      required this.title})
       : super(key: key);
 
   @override
@@ -18,6 +22,8 @@ class SelectMongodbData extends StatefulWidget {
 }
 
 class _SelectMongodbData extends State<SelectMongodbData> {
+  TextEditingController _searchController = TextEditingController();
+  List<List<String>> itemslist = [[]];
   // this variable holds the selected items
   // final List<List<String>> _selectedItems = [];// repair herere
   // final List<List<String>> _selectedItems = widget.selecteditems;// repair herere
@@ -31,6 +37,7 @@ class _SelectMongodbData extends State<SelectMongodbData> {
   @override
   void initState() {
     super.initState();
+    itemslist = widget.items;
     // _selectedItems = [];
     // print(widget.selecteditems.toString());
     // final List<List<String>> _selectedItems = widget.selecteditems;
@@ -79,6 +86,15 @@ class _SelectMongodbData extends State<SelectMongodbData> {
     Navigator.pop(context, widget.selecteditems);
   }
 
+  void _filterItems(String query) {
+    setState(() {
+      itemslist = widget.items
+          .where((list) => list
+              .any((item) => item.toLowerCase().contains(query.toLowerCase())))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //  print(widget.selecteditems[1]);
@@ -86,23 +102,46 @@ class _SelectMongodbData extends State<SelectMongodbData> {
 
     // print(sublist);
     return AlertDialog(
-      title: const Text('Select Topics'),
+      // title: const Text('Select Topics'),
+      title: Text(widget.title),
       content: SingleChildScrollView(
-        child: ListBody(
-          children: widget.items
-              .map((item) => CheckboxListTile(
-                    // value: widget.selecteditems.contains(item),
-                    value: widget.selecteditems
-                        .any((selectedd) => selectedd[0] == item[0]),
-                    // value: _selectedItems.contains(item),
-                    // value: secondItems.contains(item[1]),
-                    title: Text(item[1]),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (isChecked) => _itemChange(item, isChecked!),
-                  ))
-              .toList(),
-        ),
-      ),
+          child: Column(
+        children: [
+          TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              labelText: 'Search',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.search),
+            ),
+            onChanged: (value) {
+              _filterItems(value);
+            },
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ListBody(
+            children:
+                // widget.items
+                itemslist
+                    .map((item) => CheckboxListTile(
+                          // value: widget.selecteditems.contains(item),
+                          value: widget.selecteditems
+                              .any((selectedd) => selectedd[0] == item[0]),
+                          // value: _selectedItems.contains(item),
+                          // value: secondItems.contains(item[1]),
+                          title: Text(item[1]),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          // onChanged: (isChecked) => _itemChange(item, isChecked!),
+                          onChanged: (isChecked) {
+                            _itemChange(item, isChecked!);
+                          },
+                        ))
+                    .toList(),
+          ),
+        ],
+      )),
       actions: [
         TextButton(
           onPressed: _cancel,

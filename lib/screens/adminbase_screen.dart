@@ -14,7 +14,7 @@ import '../constants/size.dart';
 import 'database_screen.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
-import 'uploaddata_screen.dart';
+import 'adminuploaddata_screen.dart';
 
 class AdminBaseScreen extends StatefulWidget {
   const AdminBaseScreen({Key? key}) : super(key: key);

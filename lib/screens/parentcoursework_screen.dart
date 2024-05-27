@@ -21,7 +21,7 @@ import 'package:get/get.dart';
 import 'package:mongo_dart/mongo_dart.dart' as m;
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_hub/screens/addfeedback_screen.dart';
+import 'package:smart_hub/screens/teacheraddfeedback_screen.dart';
 //import 'package:video_player/video_player.dart';
 
 import '../constants/color.dart';
@@ -39,7 +39,7 @@ import '../widgets/lesson_card.dart';
 import '../widgets/search_testfield.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
-import 'uploaddata_screen.dart';
+import 'adminuploaddata_screen.dart';
 
 class ParentCoursework extends StatefulWidget {
   // final String title;
@@ -107,49 +107,75 @@ class _ParentCoursework extends State<ParentCoursework> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-                  height: 200,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0.1, 0.5],
-                      colors: [
-                        Color(0xff886ff2),
-                        Color(0xff6849ef),
-                      ],
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hello,\nGood Morning",
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          CircleButton(
-                            icon: Icons.notifications,
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const SearchTextFieldPlacehold(
-                        placeholder: "Search Coursework",
-                      )
-                    ],
-                  ),
-                ),
+      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+      height: 200,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0.1, 0.5],
+          colors: [
+            Color(0xff886ff2),
+            Color(0xff6849ef),
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Hello,\nGood Morning",
+                textScaler: const TextScaler.linear(0.8),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              CircleButton(
+                icon: Icons.notifications,
+                onPressed: () {},
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          //     const Center(
+          //   child: Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //       Text('You have pushed the button this many times:'),
+
+          //       /// Extracted as a separate widget for performance optimization.
+          //       /// As a separate widget, it will rebuild independently from [MyHomePage].
+          //       ///
+          //       /// This is totally optional (and rarely needed).
+          //       /// Similarly, we could also use [Consumer] or [Selector].
+          //       Name(),
+          //     ],
+          //   ),
+          // ),
+          Center(
+            child: Text(
+              // "Aly Zanaty",
+              // "{$context.watch<UserProvider>().name}",
+              '${context.watch<UserProvider>().nickname}',
+              key: const Key('counterState'),
+              textScaler: const TextScaler.linear(3.5),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+
+          // const SearchTextField()
+        ],
+      ),
+    ),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 //   child: Row(
@@ -925,7 +951,7 @@ class _CourseworkListDetails extends State<CourseworkListDetails> {
             DateFormat('dd-MM-yyy').format(widget.coursework.duedate)),
         Text("Due Date" +
             DateFormat('dd-MM-yyy').format(widget.coursework.duedate)),
-        Text("Assignees Type" + widget.coursework.assigneestype),
+        Text("Subject " + widget.coursework.schoolsubject),
         const SizedBox(height: 15,),
         const Text("coursework feedback " ),
         (feedback == "()") ? const Text("Feedback is yet to be received",  style: TextStyle(fontSize: 20)) : Text( feedback.substring(1, feedback.length - 1), style: const TextStyle(fontSize: 20)),

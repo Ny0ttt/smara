@@ -18,7 +18,7 @@ import 'logout_screen.dart';
 import 'studentcoursework_screen.dart';
 import 'studentmaterialnotice_screen.dart';
 import 'teachercoursework_screen.dart';
-import 'uploaddata_screen.dart';
+import 'adminuploaddata_screen.dart';
 
 class StudentBaseScreen extends StatefulWidget {
   const StudentBaseScreen({Key? key}) : super(key: key);

@@ -15,7 +15,7 @@ class CourseworkModel {
   String name;
   DateTime assigndate;
   DateTime duedate;
-  String assigneestype;
+  String schoolsubject;
   List<String> assigneeslist;
   String content;
 
@@ -26,7 +26,7 @@ class CourseworkModel {
     required this.name,
     required this.assigndate,
     required this.duedate,
-    required this.assigneestype,
+    required this.schoolsubject,
     required this.assigneeslist,
     required this.content,
   });
@@ -39,7 +39,7 @@ class CourseworkModel {
         name: json["name"],
         assigndate: json["assigndate"],
         duedate: json["duedate"],
-        assigneestype: json["assigneestype"],
+        schoolsubject: json["schoolsubject"] ?? "",
         // assigneeslist: json["assigneeslist"],
         // assigneeslist: json.values.map((value) => value.toString()).toList(),
         assigneeslist: (json["assigneeslist"] as List?)?.map((value) => value.toString()).toList() ?? [],
@@ -53,7 +53,7 @@ class CourseworkModel {
         "name": name,
         "assigndate": assigndate,
         "duedate": duedate,
-        "assigneestype": assigneestype,
+        "schoolsubject": schoolsubject,
         "assigneeslist": assigneeslist,
         "content": content,
       };

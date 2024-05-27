@@ -20,7 +20,7 @@ import 'parentmaterialnotice_screen.dart';
 import 'studentcoursework_screen.dart';
 import 'studentmaterialnotice_screen.dart';
 import 'teachercoursework_screen.dart';
-import 'uploaddata_screen.dart';
+import 'adminuploaddata_screen.dart';
 
 class ParentBaseScreen extends StatefulWidget {
   const ParentBaseScreen({Key? key}) : super(key: key);

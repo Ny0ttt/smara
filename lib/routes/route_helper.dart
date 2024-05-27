@@ -15,9 +15,9 @@ import 'package:smart_hub/models/coursework_model.dart';
 import 'package:smart_hub/screens/studentbase_screen.dart';
 // import 'package:education_app/screens/studentlist_screen.dart';
 
-import '../screens/addcoursework_screen.dart';
-import '../screens/addfeedback_screen.dart';
-import '../screens/addmaterialnotice_screen.dart';
+import '../screens/teacheraddcoursework_screen.dart';
+import '../screens/teacheraddfeedback_screen.dart';
+import '../screens/teacheraddmaterialnotice_screen.dart';
 import '../screens/adminbase_screen.dart';
 import '../screens/generateregistrationcode_screen.dart';
 import '../screens/login_screen.dart';
@@ -30,11 +30,11 @@ import '../screens/teacherbase_screen.dart';
 import '../screens/teachercoursework_screen.dart';
 import '../screens/teacherdetails_screen.dart';
 import '../screens/teacherlist_screen.dart';
-import '../screens/uploadstudent_screen.dart';
-import '../screens/uploadteacher_screen.dart';
-import '../screens/uploaduser_screen.dart';
-import '../screens/userdetails_screen.dart';
-import '../screens/userlist_screen.dart';
+import '../screens/adminuploadstudent_screen.dart';
+import '../screens/adminuploadteacher_screen.dart';
+import '../screens/adminuploaduser_screen.dart';
+import '../screens/adminuserdetails_screen.dart';
+import '../screens/adminuserlist_screen.dart';
 
 class RouteHelper {
   static const String initial = "/";
