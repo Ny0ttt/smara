@@ -38,14 +38,13 @@ class MongoDatabase {
 
   // static Future<List<Map<String, dynamic>>> getstudents() async {
   static Future<void> login(
-      String name, String password, BuildContext context) async {
+      String matric, String password, BuildContext context) async {
     // userCollection = db.collection(STUDENTS_COLLECTION);
     userCollection = db.collection(USERS_COLLECTION);
     // final arrData = await userCollection.find().toList();
     // final arrData = await userCollection.find(where.eq('name', 'asasas')).toList();
     try {
-      // var arrData = await userCollection.findOne(where.eq('matric', matric));
-      var arrData = await userCollection.findOne(where.eq('nickname', name));
+      var arrData = await userCollection.findOne(where.eq('matric', matric));
       var bytes = utf8.encode(password); // data being hashed
       var digest = sha1.convert(bytes);
 
@@ -60,10 +59,8 @@ class MongoDatabase {
               emel: arrData["emel"],
               role: arrData["role"],
               password: arrData["password"],
-              children: (arrData["children"] as List?)
-                      ?.map((value) => value.toString())
-                      .toList() ??
-                  []);
+              children: arrData["children"]
+              );
 
           context.read<UserProvider>().setuser(users);
           Get.toNamed(RouteHelper.gotocontext(users.role));
@@ -114,8 +111,7 @@ class MongoDatabase {
   static Future<String> getstudentregistrationcode(BuildContext context) async {
     userCollection = db.collection("secret");
 
-    var arrData =
-        await userCollection.findOne(where.eq('type', 'student secret code'));
+    var arrData = await userCollection.findOne(where.eq('type', 'student secret code'));
     print(arrData["genratedcode"]);
 
     return arrData["generatedcode"];
@@ -124,8 +120,7 @@ class MongoDatabase {
   static Future<String> getteacherregistrationcode(BuildContext context) async {
     userCollection = db.collection("secret");
 
-    var arrData =
-        await userCollection.findOne(where.eq('type', 'teacher secret code'));
+    var arrData = await userCollection.findOne(where.eq('type', 'teacher secret code'));
     print(arrData["genratedcode"]);
 
     return arrData["generatedcode"];
@@ -134,8 +129,7 @@ class MongoDatabase {
   static Future<String> getparentsregistrationcode(BuildContext context) async {
     userCollection = db.collection("secret");
 
-    var arrData =
-        await userCollection.findOne(where.eq('type', 'parents secret code'));
+    var arrData = await userCollection.findOne(where.eq('type', 'parents secret code'));
     print(arrData["genratedcode"]);
 
     return arrData["generatedcode"];
@@ -144,8 +138,7 @@ class MongoDatabase {
   static Future<String> getadminregistrationcode(BuildContext context) async {
     userCollection = db.collection("secret");
 
-    var arrData =
-        await userCollection.findOne(where.eq('type', 'admin secret code'));
+    var arrData = await userCollection.findOne(where.eq('type', 'admin secret code'));
     print(arrData["genratedcode"]);
 
     return arrData["generatedcode"];
@@ -157,8 +150,8 @@ class MongoDatabase {
 
     // try{
     // var arrData = await userCollection.findOne(where.eq('type', 'secret code'));
-    userCollection.updateOne(where.eq('type', 'student secret code'),
-        modify.set('generatedcode', newcode));
+    userCollection.updateOne(
+        where.eq('type', 'student secret code'), modify.set('generatedcode', newcode));
     // print(arrData["genratedcode"]);
 
     // return arrData["generatedcode"];
@@ -170,8 +163,8 @@ class MongoDatabase {
 
     // try{
     // var arrData = await userCollection.findOne(where.eq('type', 'secret code'));
-    userCollection.updateOne(where.eq('type', 'teacher secret code'),
-        modify.set('generatedcode', newcode));
+    userCollection.updateOne(
+        where.eq('type', 'teacher secret code'), modify.set('generatedcode', newcode));
     // print(arrData["genratedcode"]);
 
     // return arrData["generatedcode"];
@@ -183,8 +176,8 @@ class MongoDatabase {
 
     // try{
     // var arrData = await userCollection.findOne(where.eq('type', 'secret code'));
-    userCollection.updateOne(where.eq('type', 'parents secret code'),
-        modify.set('generatedcode', newcode));
+    userCollection.updateOne(
+        where.eq('type', 'parents secret code'), modify.set('generatedcode', newcode));
     // print(arrData["genratedcode"]);
 
     // return arrData["generatedcode"];
@@ -196,28 +189,24 @@ class MongoDatabase {
 
     // try{
     // var arrData = await userCollection.findOne(where.eq('type', 'secret code'));
-    userCollection.updateOne(where.eq('type', 'admin secret code'),
-        modify.set('generatedcode', newcode));
+    userCollection.updateOne(
+        where.eq('type', 'admin secret code'), modify.set('generatedcode', newcode));
     // print(arrData["genratedcode"]);
 
     // return arrData["generatedcode"];
   }
 
-  static Future<void> userregister(
-      String code, UserModelTemporary data, BuildContext context) async {
+  static Future<void> userregister(String code, UserModelTemporary data, BuildContext context) async {
     userCollection = db.collection(USERS_COLLECTION);
     secret = db.collection("secret");
     // var secretcode = await secret.findOne(where.eq('type', 'secret code'));
-    var studentsecretcode =
-        await secret.findOne(where.eq('type', 'student secret code'));
-    var teachersecretcode =
-        await secret.findOne(where.eq('type', 'teacher secret code'));
-    var parentssecretcode =
-        await secret.findOne(where.eq('type', 'parents secret code'));
-    var adminsecretcode =
-        await secret.findOne(where.eq('type', 'admin secret code'));
+    var studentsecretcode = await secret.findOne(where.eq('type', 'student secret code'));
+    var teachersecretcode = await secret.findOne(where.eq('type', 'teacher secret code'));
+    var parentssecretcode = await secret.findOne(where.eq('type', 'parents secret code'));
+    var adminsecretcode = await secret.findOne(where.eq('type', 'admin secret code'));
 
     try {
+
       // if (code == secretcode["generatedcode"]) {
       //   var result = await userCollection.insertOne(data.toJson());
       //   if (result.isSuccess) {
@@ -228,7 +217,10 @@ class MongoDatabase {
 
       //   Get.toNamed(RouteHelper.loginscreen());
 
+
       //     print("User Registered" + data.toJson().toString());
+
+          
 
       //     // return "User Registered" + data.toJson().toString();
       //   } else {
@@ -239,58 +231,71 @@ class MongoDatabase {
 
       //   Get.toNamed(RouteHelper.loginscreen());
 
+        
       //     print("Something went wrong while registering");
       //     // return "Something went wrong while registering";
       //   }
-      // } else
+      // } else 
       if (code == studentsecretcode["generatedcode"]) {
         data.role = "Student";
         var result = await userCollection.insertOne(data.toJson());
         if (result.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(" Student Registered "),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(" Student Registered "),
+        ));
+
+        Get.toNamed(RouteHelper.loginscreen());
+
 
           print("Student Registered" + data.toJson().toString());
 
+          
+
           // return "User Registered" + data.toJson().toString();
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Something went wrong while registering"),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Something went wrong while registering"),
+        ));
 
+        Get.toNamed(RouteHelper.loginscreen());
+
+        
           print("Something went wrong while registering");
           // return "Something went wrong while registering";
         }
-      } else if (code == teachersecretcode["generatedcode"]) {
-        data.role = "Teacher";
+      }else if (code == teachersecretcode["generatedcode"]) {
+      data.role = "Teacher";
 
         var result = await userCollection.insertOne(data.toJson());
         if (result.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(" Teacher Registered "),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(" Teacher Registered "),
+        ));
+
+        Get.toNamed(RouteHelper.loginscreen());
+
 
           print("Teacher Registered" + data.toJson().toString());
 
+          
+
           // return "User Registered" + data.toJson().toString();
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Something went wrong while registering"),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Something went wrong while registering"),
+        ));
 
+        Get.toNamed(RouteHelper.loginscreen());
+
+        
           print("Something went wrong while registering");
           // return "Something went wrong while registering";
         }
-      } else if (code == parentssecretcode["generatedcode"]) {
+      }else if (code == parentssecretcode["generatedcode"]) {
         data.role = "Parent";
         // data.children = data.matric.split(' ');
         data.children = data.matric.split(RegExp(r'[ ,/]'));
@@ -298,22 +303,28 @@ class MongoDatabase {
 
         var result = await userCollection.insertOne(data.toJson());
         if (result.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(" Parents Registered "),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(" Parents Registered "),
+        ));
+
+        Get.toNamed(RouteHelper.loginscreen());
+
 
           print("Parents Registered" + data.toJson().toString());
 
+          
+
           // return "User Registered" + data.toJson().toString();
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Something went wrong while registering"),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Something went wrong while registering"),
+        ));
 
+        Get.toNamed(RouteHelper.loginscreen());
+
+        
           print("Something went wrong while registering");
           // return "Something went wrong while registering";
         }
@@ -322,38 +333,47 @@ class MongoDatabase {
 
         var result = await userCollection.insertOne(data.toJson());
         if (result.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(" Admin Registered "),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(" Admin Registered "),
+        ));
+
+        Get.toNamed(RouteHelper.loginscreen());
+
 
           print("Admin Registered" + data.toJson().toString());
 
+          
+
           // return "User Registered" + data.toJson().toString();
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Something went wrong while registering"),
-          ));
 
-          Get.toNamed(RouteHelper.loginscreen());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Something went wrong while registering"),
+        ));
 
+        Get.toNamed(RouteHelper.loginscreen());
+
+        
           print("Something went wrong while registering");
           // return "Something went wrong while registering";
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Secret Code is not valid"),
         ));
 
         print("code is not correct");
         // return "code is not correct";
       }
+
     } catch (e) {
       print(e.toString());
       // return e.toString();
-    }
-    throw {print("eeeee")};
+    }throw{
+      print("eeeee")
+    };
   }
 
   static Future<void> updatecourseworkfeedback(
@@ -428,6 +448,7 @@ class MongoDatabase {
 
   static Future<List<Map<String, dynamic>>> getstudentbymaterialnotice(
       ObjectId materialnoticeid) async {
+
     userCollection = db.collection(MATERIALNOTICE_COLLECTION);
 
     try {
@@ -503,40 +524,39 @@ class MongoDatabase {
     userCollection = db.collection(COURSEWORK_COLLECTION);
 
     // try {
-    final arrData0 = await userCollection
-        .find(where.sortBy('_id', descending: true))
-        .toList();
+      final arrData0 =
+          await userCollection.find().toList();
 
-    // List<CourseworkModel> relatedcourseworks = arrData0["assigneeslist"].map((assigneeslist) => assigneeslist["student"].map((student) { if(student["studentid"] == studentid.toString()){ return arrData0["_id"];}}));
-    // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); return studentt; }); } ).toString());
-    // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(true){return studentss.student.studentid;} }); } ).toString());
-    // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return CourseworkModel.fromJson(assigneeslist);} }); } ).toString());
-    // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return assigneeslist;} }); } ).toString());
+      // List<CourseworkModel> relatedcourseworks = arrData0["assigneeslist"].map((assigneeslist) => assigneeslist["student"].map((student) { if(student["studentid"] == studentid.toString()){ return arrData0["_id"];}}));
+      // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); return studentt; }); } ).toString());
+      // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(true){return studentss.student.studentid;} }); } ).toString());
+      // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return CourseworkModel.fromJson(assigneeslist);} }); } ).toString());
+      // print("ini arrdata0" + arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return assigneeslist;} }); } ).toString());
 
-    //  List<CourseworkModel> courseworks = arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return CourseworkModel.fromJson(assigneeslist);} }); } ).toList();
-    // final List<CourseworkModel> courseworks = arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return assigneeslist;} }); } );
+      //  List<CourseworkModel> courseworks = arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return CourseworkModel.fromJson(assigneeslist);} }); } ).toList();
+      // final List<CourseworkModel> courseworks = arrData0.map((assigneeslist ){ return assigneeslist["assigneeslist"].map((student){ var studentt =  jsonDecode(student); AssignStudentModel studentss = AssignStudentModel.fromJson(studentt); if(studentss.student.studentid == '111'){return assigneeslist;} }); } );
 
-    List<CourseworkModel> courseworks = arrData0
-        .map((assigneeslist) {
-          var filteredAssignees =
-              assigneeslist["assigneeslist"].where((student) {
-            var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
-            return studentModel.student.studentid == studentid;
-          }).toList();
+      List<CourseworkModel> courseworks = arrData0
+    .map((assigneeslist) {
 
-          if (filteredAssignees.isNotEmpty) {
-            return CourseworkModel.fromJson(assigneeslist);
-          } else {
-            return null;
-          }
-        })
-        .where((assigneeslist) => assigneeslist != null)
-        .cast<CourseworkModel>()
-        .toList();
+      var filteredAssignees = assigneeslist["assigneeslist"].where((student) {
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
+        return studentModel.student.studentid == studentid;
+      }).toList();
 
-    // return arrData0;
-    return courseworks;
+      if (filteredAssignees.isNotEmpty) {
+        return CourseworkModel.fromJson(assigneeslist);
+      } else {
+        return null;
+      }
+    })
+    .where((assigneeslist) => assigneeslist != null) 
+    .cast<CourseworkModel>() 
+    .toList();
 
+      // return arrData0;
+      return courseworks;
+      
     // } catch (e) {
     //   print('An error occurred: $e');
     //   return [];
@@ -550,32 +570,31 @@ class MongoDatabase {
     userCollection = db.collection(COURSEWORK_COLLECTION);
 
     // try {
-    final arrData0 = await userCollection
-        .find(where.sortBy('_id', descending: true))
-        .toList();
+      final arrData0 =
+          await userCollection.find().toList();
 
-    List<CourseworkModel> courseworks = arrData0
-        .map((assigneeslist) {
-          var filteredAssignees =
-              assigneeslist["assigneeslist"].where((student) {
-            var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
+      List<CourseworkModel> courseworks = arrData0
+    .map((assigneeslist) {
 
-            return studentids.contains(studentModel.student.studentid);
-          }).toList();
+      var filteredAssignees = assigneeslist["assigneeslist"].where((student) {
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
 
-          if (filteredAssignees.isNotEmpty) {
-            return CourseworkModel.fromJson(assigneeslist);
-          } else {
-            return null;
-          }
-        })
-        .where((assigneeslist) => assigneeslist != null)
-        .cast<CourseworkModel>()
-        .toList();
+        return studentids.contains(studentModel.student.studentid);
+      }).toList();
 
-    // return arrData0;
-    return courseworks;
+      if (filteredAssignees.isNotEmpty) {
+        return CourseworkModel.fromJson(assigneeslist);
+      } else {
+        return null;
+      }
+    })
+    .where((assigneeslist) => assigneeslist != null) 
+    .cast<CourseworkModel>() 
+    .toList();
 
+      // return arrData0;
+      return courseworks;
+      
     // } catch (e) {
     //   print('An error occurred: $e');
     //   return [];
@@ -589,29 +608,29 @@ class MongoDatabase {
     userCollection = db.collection(MATERIALNOTICE_COLLECTION);
 
     // try {
-    final arrData0 = await userCollection
-        .find(where.sortBy('_id', descending: true))
-        .toList();
+      final arrData0 =
+          await userCollection.find().toList();
 
-    List<MaterialNoticeModel> courseworks = arrData0
-        .map((assigneeslist) {
-          var filteredAssignees =
-              assigneeslist["assigneeslist"].where((student) {
-            var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
-            return studentModel.student.studentid == studentid;
-          }).toList();
+      List<MaterialNoticeModel> courseworks = arrData0
+    .map((assigneeslist) {
 
-          if (filteredAssignees.isNotEmpty) {
-            return MaterialNoticeModel.fromJson(assigneeslist);
-          } else {
-            return null;
-          }
-        })
-        .where((assigneeslist) => assigneeslist != null)
-        .cast<MaterialNoticeModel>()
-        .toList();
+      var filteredAssignees = assigneeslist["assigneeslist"].where((student) {
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
+        return studentModel.student.studentid == studentid;
+      }).toList();
 
-    return courseworks;
+      if (filteredAssignees.isNotEmpty) {
+        return MaterialNoticeModel.fromJson(assigneeslist);
+      } else {
+        return null;
+      }
+    })
+    .where((assigneeslist) => assigneeslist != null) 
+    .cast<MaterialNoticeModel>() 
+    .toList();
+
+      return courseworks;
+      
   }
 
   static Future<List<MaterialNoticeModel>> getmaterialnoticebychildren(
@@ -621,30 +640,30 @@ class MongoDatabase {
     userCollection = db.collection(MATERIALNOTICE_COLLECTION);
 
     // try {
-    final arrData0 = await userCollection
-        .find(where.sortBy('_id', descending: true))
-        .toList();
+      final arrData0 =
+          await userCollection.find().toList();
 
-    List<MaterialNoticeModel> courseworks = arrData0
-        .map((assigneeslist) {
-          var filteredAssignees =
-              assigneeslist["assigneeslist"].where((student) {
-            var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
-            // return studentModel.student.studentid == studentids;
-            return studentids.contains(studentModel.student.studentid);
-          }).toList();
+      List<MaterialNoticeModel> courseworks = arrData0
+    .map((assigneeslist) {
 
-          if (filteredAssignees.isNotEmpty) {
-            return MaterialNoticeModel.fromJson(assigneeslist);
-          } else {
-            return null;
-          }
-        })
-        .where((assigneeslist) => assigneeslist != null)
-        .cast<MaterialNoticeModel>()
-        .toList();
+      var filteredAssignees = assigneeslist["assigneeslist"].where((student) {
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(student));
+        // return studentModel.student.studentid == studentids;
+      return studentids.contains(studentModel.student.studentid);
+      }).toList();
 
-    return courseworks;
+      if (filteredAssignees.isNotEmpty) {
+        return MaterialNoticeModel.fromJson(assigneeslist);
+      } else {
+        return null;
+      }
+    })
+    .where((assigneeslist) => assigneeslist != null) 
+    .cast<MaterialNoticeModel>() 
+    .toList();
+
+      return courseworks;
+      
   }
 
   static Future<List<Map<String, dynamic>>> getstudents() async {
@@ -685,24 +704,12 @@ class MongoDatabase {
     // return arrData.map((doc) => doc['name'] as String);
   }
 
-  static Future<List<Map<String, dynamic>>> getstudentsbyclasses(
+  static Future<List<Map<String, dynamic>>> getstudentsbyclass(
       List<String> classes) async {
     // static Future<List<Map<String, dynamic>>> getstudentsbyid()  async{
     userCollection = db.collection(STUDENTS_COLLECTION);
     final arrData = await userCollection
         .find(where.oneFrom('studentclass', classes))
-        .toList();
-    // final arrData = await userCollection.find().toList();
-    return arrData;
-    // return arrData.map((doc) => doc['name'] as String);
-  }
-
-  static Future<List<Map<String, dynamic>>> getstudentsbyclass(
-      String schoolclass) async {
-    // static Future<List<Map<String, dynamic>>> getstudentsbyid()  async{
-    userCollection = db.collection(STUDENTS_COLLECTION);
-    final arrData = await userCollection
-        .find(where.eq('studentclass', schoolclass))
         .toList();
     // final arrData = await userCollection.find().toList();
     return arrData;

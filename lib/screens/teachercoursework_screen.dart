@@ -21,7 +21,7 @@ import 'package:get/get.dart';
 import 'package:mongo_dart/mongo_dart.dart' as m;
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_hub/screens/teacheraddfeedback_screen.dart';
+import 'package:smart_hub/screens/addfeedback_screen.dart';
 //import 'package:video_player/video_player.dart';
 
 import '../constants/color.dart';
@@ -39,7 +39,7 @@ import '../widgets/lesson_card.dart';
 import '../widgets/search_testfield.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
-import 'adminuploaddata_screen.dart';
+import 'uploaddata_screen.dart';
 
 class TeacherCoursework extends StatefulWidget {
   // final String title;
@@ -118,10 +118,12 @@ class _TeacherCoursework extends State<TeacherCoursework> {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0.1, 0.5],
+                      stops: [0.1, 0.7],
                       colors: [
-                        Color(0xff886ff2),
-                        Color(0xff6849ef),
+                        // Color(0xff886ff2),
+                        Color.fromARGB(187, 42, 219, 78),
+                        Color.fromARGB(255, 37, 211, 230),
+                        // Color(0xff6849ef),
                       ],
                     ),
                   ),
@@ -133,7 +135,6 @@ class _TeacherCoursework extends State<TeacherCoursework> {
                         children: [
                           Text(
                             "Hello,\nGood Morning",
-                            textScaler: const TextScaler.linear(0.8),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           CircleButton(
@@ -145,34 +146,9 @@ class _TeacherCoursework extends State<TeacherCoursework> {
                       const SizedBox(
                         height: 20,
                       ),
-                      //     const Center(
-                      //   child: Column(
-                      //     mainAxisSize: MainAxisSize.min,
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: <Widget>[
-                      //       Text('You have pushed the button this many times:'),
-
-                      //       /// Extracted as a separate widget for performance optimization.
-                      //       /// As a separate widget, it will rebuild independently from [MyHomePage].
-                      //       ///
-                      //       /// This is totally optional (and rarely needed).
-                      //       /// Similarly, we could also use [Consumer] or [Selector].
-                      //       Name(),
-                      //     ],
-                      //   ),
-                      // ),
-                      Center(
-                        child: Text(
-                          // "Aly Zanaty",
-                          // "{$context.watch<UserProvider>().name}",
-                          '${context.watch<UserProvider>().nickname}',
-                          key: const Key('counterState'),
-                          textScaler: const TextScaler.linear(3.5),
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-
-                      // const SearchTextField()
+                      const SearchTextFieldPlacehold(
+                        placeholder: "Search Coursework",
+                      )
                     ],
                   ),
                 ),
@@ -441,7 +417,9 @@ class _CourseworkList extends State<CourseworkList> {
                   // print(m.ObjectId.parse('${context.watch<UserProvider>().id}'.substring(10, 34)));
                   if (snapshot.hasData) {
                     var totalData = snapshot.data.length;
-                    // print("snapshot data " + snapshot.data.toString());
+                    // print("Total Data" + totalData.toString());
+                    print("snapshot data " + snapshot.data.toString());
+                    // print("All Data" + snapshot.data.toString());
                     return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
@@ -834,6 +812,7 @@ class CourseworkContainer extends StatelessWidget {
                   Text(coursework.name),
                   Text(coursework.content),
                   // Text( DateFormat('dd-MM-yyy').format(coursework.assigndate)),
+
                 ]),
               ),
               // Text(
@@ -920,7 +899,7 @@ class _CourseworkListDetails extends State<CourseworkListDetails> {
             DateFormat('dd-MM-yyy').format(widget.coursework.duedate)),
         Text("Due Date" +
             DateFormat('dd-MM-yyy').format(widget.coursework.duedate)),
-        Text("Assignees Type" + widget.coursework.schoolsubject),
+        Text("Assignees Type" + widget.coursework.assigneestype),
         const CourseworkDetailsTableHeader(),
         Expanded(
           child: SizedBox(

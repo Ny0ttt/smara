@@ -229,14 +229,16 @@ class AppBar extends StatelessWidget {
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.1, 0.5],
-          colors: [
-            Color(0xff886ff2),
-            Color(0xff6849ef),
-          ],
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.1, 0.7],
+                      colors: [
+                        // Color(0xff886ff2),
+                        Color.fromARGB(187, 42, 219, 78),
+                        Color.fromARGB(255, 37, 211, 230),
+                        // Color(0xff6849ef),
+                      ],
         ),
       ),
       child: Column(
@@ -247,7 +249,6 @@ class AppBar extends StatelessWidget {
             children: [
               Text(
                 "Hello,\nGood Morning",
-                textScaler: const TextScaler.linear(0.8),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               CircleButton(
@@ -259,34 +260,9 @@ class AppBar extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          //     const Center(
-          //   child: Column(
-          //     mainAxisSize: MainAxisSize.min,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       Text('You have pushed the button this many times:'),
-
-          //       /// Extracted as a separate widget for performance optimization.
-          //       /// As a separate widget, it will rebuild independently from [MyHomePage].
-          //       ///
-          //       /// This is totally optional (and rarely needed).
-          //       /// Similarly, we could also use [Consumer] or [Selector].
-          //       Name(),
-          //     ],
-          //   ),
-          // ),
-          Center(
-            child: Text(
-              // "Aly Zanaty",
-              // "{$context.watch<UserProvider>().name}",
-              '${context.watch<UserProvider>().nickname}',
-              key: const Key('counterState'),
-              textScaler: const TextScaler.linear(3.5),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-
-          // const SearchTextField()
+          const SearchTextFieldPlacehold(
+            placeholder: "",
+          )
         ],
       ),
     );

@@ -29,7 +29,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreen extends State<RegisterScreen> {
   var fullname = TextEditingController();
-  var username = TextEditingController();
+  var nickname = TextEditingController();
   var matric = TextEditingController();
   var password = TextEditingController();
   var useremail = TextEditingController();
@@ -70,6 +70,7 @@ SingleChildScrollView(child:
               SizedBox(
                 height: 80,
               ),
+
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Row(
@@ -82,6 +83,7 @@ SingleChildScrollView(child:
                   ],
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -104,9 +106,9 @@ SingleChildScrollView(child:
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
-                  controller: username,
+                  controller: nickname,
                   decoration: const InputDecoration(
-                    hintText: 'Enter Username',
+                    hintText: 'Enter Nickname',
                     hintStyle: TextStyle(fontSize: 20, color: Colors.grey),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     // labelText: "Student Transcript",
@@ -206,7 +208,7 @@ SingleChildScrollView(child:
                 child: TextFormField(
                   controller: secretcode,
                   decoration: const InputDecoration(
-                    hintText: 'Role Registration Code',
+                    hintText: 'Secret Code',
                     hintStyle: TextStyle(fontSize: 20, color: Colors.grey),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     // labelText: "Student Transcript",
@@ -251,7 +253,7 @@ SingleChildScrollView(child:
 
                         _userregister(
                             fullname.text,
-                            username.text,
+                            nickname.text,
                             matric.text,
                             password.text,
                             useremail.text,
@@ -354,8 +356,8 @@ SingleChildScrollView(child:
   }
 
   Future<void> _userregister(
-    String fullname,
     String username,
+    String nickname,
     String matric,
     String password,
     String useremail,
@@ -368,8 +370,8 @@ SingleChildScrollView(child:
     var digest = sha1.convert(bytes);
     final data = UserModelTemporary(
         id: _id,
-        name: fullname,
-        nickname: username,
+        name: username,
+        nickname: nickname,
         matric: matric,
         emel: useremail,
         role: "",

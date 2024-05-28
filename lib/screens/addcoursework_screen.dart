@@ -12,8 +12,6 @@ import 'package:crypto/crypto.dart';
 // import 'package:education_app/widgets/custom_icon_button.dart';
 // import 'package:education_app/widgets/selectmongodbdata.dart';
 // import 'package:education_app/widgets/search_testfield.dart';
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -48,21 +46,17 @@ class _AddCoursework extends State<AddCoursework> {
   String? assigneestype;
   List<List<String>> assignees = [];
   var courseworkcontent = TextEditingController();
-  List<List<String>> classesList = [[]];
-  String selectclass = "";
-  List<String> listsubject = [];
-  String selectedsubject = "BAHASA MELAYU";
 
   // DateTime? date;
 
-  // List<DropdownMenuItem<String>> get dropdownItems {
-  //   List<DropdownMenuItem<String>> menuItems = [
-  //     const DropdownMenuItem(child: Text("Homework"), value: "homework"),
-  //     const DropdownMenuItem(
-  //         child: Text("Extra Exercise"), value: "extraexercise"),
-  //   ];
-  //   return menuItems;
-  // }
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Homework"), value: "homework"),
+      const DropdownMenuItem(
+          child: Text("Extra Exercise"), value: "extraexercise"),
+    ];
+    return menuItems;
+  }
 
 // ignore: unused_field, prefer_final_fields
   bool _isSelected = false;
@@ -103,8 +97,7 @@ class _AddCoursework extends State<AddCoursework> {
         // return  MultiSelect(items: MongoDatabase.getstudentstocoursework(),
         //  selecteditems: _selectedItems);
         return FutureBuilder(
-          // future: MongoDatabase.getstudents(),
-          future: MongoDatabase.getstudentsbyclass(selectclass),
+          future: MongoDatabase.getstudents(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               // var totalData = snapshot.data.length;
@@ -132,9 +125,7 @@ class _AddCoursework extends State<AddCoursework> {
               print('selecteditem' + _selectedStudents.toString());
 
               return SelectMongodbData(
-                  title: "Select Students",
-                  items: studentsList,
-                  selecteditems: _selectedStudents);
+                  items: studentsList, selecteditems: _selectedStudents);
               // MultiSelect(items: itemNames,
               // selecteditems: _selectedItems);
             } else {
@@ -184,16 +175,14 @@ class _AddCoursework extends State<AddCoursework> {
                 return map.values.map((value) => value.toString()).toList();
               }).toList();
 
-              // final List<String> itemNames =
-              //     items.map((map) => map['name'] as String).toList();
+              final List<String> itemNames =
+                  items.map((map) => map['name'] as String).toList();
 
               print('item list' + classesList.toString());
               print('selecteditem' + _selectedClasses.toString());
 
               return SelectMongodbData(
-                  title: "Select Classes",
-                  items: classesList,
-                  selecteditems: _selectedClasses);
+                  items: classesList, selecteditems: _selectedClasses);
               // MultiSelect(items: itemNames,
               // selecteditems: _selectedItems);
             } else {
@@ -212,25 +201,6 @@ class _AddCoursework extends State<AddCoursework> {
         _selectedStudents = results;
       });
     }
-  }
-
-  void _updatesubjectlist(String selectedclass) {
-    print("valuee" + selectedclass.toString());
-    // print("classeslist" + classesList.toString());
-    print("classeslist" + classesList[2][1].toString());
-
-    classesList.map((value) {
-      if (selectedclass == value[1]) {
-        setState(() {
-          selectclass = selectedclass;
-          listsubject = value[3].split(',');
-          selectedsubject = listsubject[0];
-        });
-      }
-    }).toList();
-
-    print("list subject" + listsubject.toString());
-    print("selectclass" + selectclass);
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -474,26 +444,18 @@ class _AddCoursework extends State<AddCoursework> {
                                               48), // Set the width to fill the available space
                                         ),
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
-                                          Expanded(
-                                            child: Text(
-                                              'Coursework Type',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20),
-                                            ),
+                                          Text(
+                                            'Coursework Type',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20),
                                           ),
-                                          if (isContent1Visible)
-                                            Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.black,
-                                            ),
-                                          if (!isContent1Visible)
-                                            Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.black,
-                                            ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.black,
+                                          ),
                                         ],
                                       )),
                                 ),
@@ -560,10 +522,7 @@ class _AddCoursework extends State<AddCoursework> {
                                             // Add more items as needed
                                           ],
                                           onChanged: (value) {
-                                            setState(() {
-                                              coursetype = value.toString();
-                                            });
-
+                                            coursetype = value.toString();
                                             // Handle the selected value
                                           },
                                         ),
@@ -606,37 +565,18 @@ class _AddCoursework extends State<AddCoursework> {
                                               48), // Set the width to fill the available space
                                         ),
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
-                                          // Text(
-                                          //   'Coursework Details',
-                                          //   style: TextStyle(
-                                          //       color: Colors.black,
-                                          //       fontSize: 20),
-                                          // ),
-                                          // Icon(
-                                          //   Icons.arrow_drop_down,
-                                          //   color: Colors.black,
-                                          // ),
-
-                                          const Expanded(
-                                            child: Text(
-                                              'Coursework Details',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20),
-                                            ),
+                                          Text(
+                                            'Coursework Details',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20),
                                           ),
-                                          if (isContent2Visible)
-                                            const Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.black,
-                                            ),
-                                          if (!isContent2Visible)
-                                            const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.black,
-                                            ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.black,
+                                          ),
                                         ],
                                       )),
                                 ),
@@ -784,43 +724,23 @@ class _AddCoursework extends State<AddCoursework> {
                                               48), // Set the width to fill the available space
                                         ),
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
-                                          // Text(
-                                          //   'Coursework Assign',
-                                          //   style: TextStyle(
-                                          //       color: Colors.black,
-                                          //       fontSize: 20),
-                                          // ),
-                                          // Icon(
-                                          //   Icons.arrow_drop_down,
-                                          //   color: Colors.black,
-                                          // ),
-
-                                          const Expanded(
-                                            child: Text(
-                                              'Coursework Assign',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20),
-                                            ),
+                                          Text(
+                                            'Coursework Assign',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20),
                                           ),
-                                          if (isContent3Visible)
-                                            const Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.black,
-                                            ),
-                                          if (!isContent3Visible)
-                                            const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.black,
-                                            ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.black,
+                                          ),
                                         ],
                                       )),
                                 ),
                                 if (isContent3Visible)
                                   Container(
-                                    width: double.maxFinite,
                                     padding: const EdgeInsets.all(10),
                                     color: Colors.grey[200],
                                     child: Column(
@@ -829,799 +749,99 @@ class _AddCoursework extends State<AddCoursework> {
                                       children: [
                                         const Text('Assignees'),
                                         const SizedBox(height: 10),
-                                        // DropdownButtonFormField(
-                                        //   value: assigneestype,
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     color: Colors.black,
-                                        //     fontWeight: FontWeight.lerp(
-                                        //         FontWeight.w500,
-                                        //         FontWeight.w400,
-                                        //         0.5),
-                                        //     overflow: TextOverflow.visible,
-                                        //   ),
-                                        //   decoration: InputDecoration(
-                                        //     hintText: "Class / Students",
-                                        //     hintStyle: TextStyle(
-                                        //       fontSize: 20,
-                                        //       color: Colors.grey,
-                                        //       fontWeight: FontWeight.lerp(
-                                        //           FontWeight.w500,
-                                        //           FontWeight.w400,
-                                        //           0.5),
-                                        //       overflow: TextOverflow.visible,
-                                        //     ),
-                                        //     floatingLabelBehavior:
-                                        //         FloatingLabelBehavior.never,
-                                        //     // labelText: "Student Transcript",
-                                        //     // filled: true,
-                                        //     // fillColor: Colors.white,
-                                        //     border: const OutlineInputBorder(
-                                        //         // borderRadius: BorderRadius.circular(40),
-                                        //         ),
-                                        //     // isDense: true,
-                                        //     enabledBorder:
-                                        //         const OutlineInputBorder(
-                                        //       borderSide: BorderSide(
-                                        //           color: Colors.black,
-                                        //           width: 1),
-                                        //       // borderRadius: BorderRadius.circular(20),
-                                        //     ),
-                                        //   ),
-                                        //   isExpanded:
-                                        //       true, // Ensure the dropdown opens below the button
-                                        //   items: const [
-                                        //     DropdownMenuItem(
-                                        //       value: "class",
-                                        //       child: Text("Class"),
-                                        //     ),
-                                        //     DropdownMenuItem(
-                                        //       value: "student",
-                                        //       child: Text("Student"),
-                                        //     ),
-                                        //     // Add more items as needed
-                                        //   ],
-                                        //   onChanged: (value) {
-                                        //     setState(() {
-                                        //       assigneestype = value.toString();
-                                        //       _selectedStudents = [];
-                                        //       _selectedClasses = [];
-                                        //       assignees = [];
-                                        //     });
-                                        //     // coursetype = value.toString();
-                                        //     // Handle the selected value
-                                        //   },
-                                        // ),
-
-                                        // DropdownButtonFormField(
-                                        //   value: assigneestype,
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     color: Colors.black,
-                                        //     fontWeight: FontWeight.lerp(
-                                        //         FontWeight.w500,
-                                        //         FontWeight.w400,
-                                        //         0.5),
-                                        //     overflow: TextOverflow.visible,
-                                        //   ),
-                                        //   decoration: InputDecoration(
-                                        //     hintText: "Select Class",
-                                        //     hintStyle: TextStyle(
-                                        //       fontSize: 20,
-                                        //       color: Colors.grey,
-                                        //       fontWeight: FontWeight.lerp(
-                                        //           FontWeight.w500,
-                                        //           FontWeight.w400,
-                                        //           0.5),
-                                        //       overflow: TextOverflow.visible,
-                                        //     ),
-                                        //     floatingLabelBehavior:
-                                        //         FloatingLabelBehavior.never,
-                                        //     // labelText: "Student Transcript",
-                                        //     // filled: true,
-                                        //     // fillColor: Colors.white,
-                                        //     border: const OutlineInputBorder(
-                                        //         // borderRadius: BorderRadius.circular(40),
-                                        //         ),
-                                        //     // isDense: true,
-                                        //     enabledBorder:
-                                        //         const OutlineInputBorder(
-                                        //       borderSide: BorderSide(
-                                        //           color: Colors.black,
-                                        //           width: 1),
-                                        //       // borderRadius: BorderRadius.circular(20),
-                                        //     ),
-                                        //   ),
-                                        //   isExpanded:
-                                        //       true, // Ensure the dropdown opens below the button
-                                        //   items: const [
-                                        //     DropdownMenuItem(
-                                        //       value: "class",
-                                        //       child: Text("Class"),
-                                        //     ),
-                                        //     DropdownMenuItem(
-                                        //       value: "student",
-                                        //       child: Text("Student"),
-                                        //     ),
-                                        //     // Add more items as needed
-                                        //   ],
-                                        //   onChanged: (value) {
-                                        //     setState(() {
-                                        //       assigneestype = value.toString();
-                                        //       _selectedStudents = [];
-                                        //       _selectedClasses = [];
-                                        //       assignees = [];
-                                        //     });
-                                        //     // coursetype = value.toString();
-                                        //     // Handle the selected value
-                                        //   },
-                                        // ),
-
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-
-                                        // DropdownButtonFormField(
-                                        //   // value: assigneestype,
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     color: Colors.black,
-                                        //     fontWeight: FontWeight.lerp(
-                                        //         FontWeight.w500,
-                                        //         FontWeight.w400,
-                                        //         0.5),
-                                        //     overflow: TextOverflow.visible,
-                                        //   ),
-                                        //   decoration: InputDecoration(
-                                        //     hintText: "Select Subject",
-                                        //     hintStyle: TextStyle(
-                                        //       fontSize: 20,
-                                        //       color: Colors.grey,
-                                        //       fontWeight: FontWeight.lerp(
-                                        //           FontWeight.w500,
-                                        //           FontWeight.w400,
-                                        //           0.5),
-                                        //       overflow: TextOverflow.visible,
-                                        //     ),
-                                        //     floatingLabelBehavior:
-                                        //         FloatingLabelBehavior.never,
-                                        //     // labelText: "Student Transcript",
-                                        //     // filled: true,
-                                        //     // fillColor: Colors.white,
-                                        //     border: const OutlineInputBorder(
-                                        //         // borderRadius: BorderRadius.circular(40),
-                                        //         ),
-                                        //     // isDense: true,
-                                        //     enabledBorder:
-                                        //         const OutlineInputBorder(
-                                        //       borderSide: BorderSide(
-                                        //           color: Colors.black,
-                                        //           width: 1),
-                                        //       // borderRadius: BorderRadius.circular(20),
-                                        //     ),
-                                        //   ),
-                                        //   isExpanded:
-                                        //       true, // Ensure the dropdown opens below the button
-                                        //   items: const [
-                                        //     DropdownMenuItem(
-                                        //       value: "class",
-                                        //       child: Text("Class"),
-                                        //     ),
-                                        //     DropdownMenuItem(
-                                        //       value: "student",
-                                        //       child: Text("Student"),
-                                        //     ),
-                                        //     // Add more items as needed
-                                        //   ],
-                                        //   onChanged: (value) {
-                                        //     setState(() {
-                                        //       assigneestype = value.toString();
-                                        //       _selectedStudents = [];
-                                        //       _selectedClasses = [];
-                                        //       assignees = [];
-                                        //     });
-                                        //     // coursetype = value.toString();
-                                        //     // Handle the selected value
-                                        //   },
-                                        // ),
-
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        if (coursetype == 'homework')
-                                          Column(
-                                            children: [
-                                              FutureBuilder(
-                                                future:
-                                                    MongoDatabase.getclasses(),
-                                                builder: (context,
-                                                    AsyncSnapshot snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    final List<
-                                                            Map<String,
-                                                                dynamic>>
-                                                        items = snapshot.data!;
-
-                                                    // final List<List<String>>
-                                                    classesList =
-                                                        items.map((map) {
-                                                      return map.values
-                                                          .map((value) =>
-                                                              value.toString())
-                                                          .toList();
-                                                    }).toList();
-
-                                                    // final List<String> itemNames =
-                                                    //     items.map((map) => map['name'] as String).toList();
-
-                                                    // print('item list' +
-                                                    //     classesList.toString());
-
-                                                    //     print('class subject' +
-                                                    //     classesList.toString());
-
-                                                    // print('selecteditem' +
-                                                    //     _selectedClasses.toString());
-
-                                                    return Column(
-                                                      children: [
-                                                        DropdownButtonFormField<
-                                                            String>(
-                                                          // value: assigneestype,
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.lerp(
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    FontWeight
-                                                                        .w400,
-                                                                    0.5),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintText:
-                                                                "Select Class",
-                                                            hintStyle:
-                                                                TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight.lerp(
-                                                                      FontWeight
-                                                                          .w500,
-                                                                      FontWeight
-                                                                          .w400,
-                                                                      0.5),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                            ),
-                                                            floatingLabelBehavior:
-                                                                FloatingLabelBehavior
-                                                                    .never,
-                                                            // labelText: "Student Transcript",
-                                                            // filled: true,
-                                                            // fillColor: Colors.white,
-                                                            border: const OutlineInputBorder(
-                                                                // borderRadius: BorderRadius.circular(40),
-                                                                ),
-                                                            // isDense: true,
-                                                            enabledBorder:
-                                                                const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      width: 1),
-                                                              // borderRadius: BorderRadius.circular(20),
-                                                            ),
-                                                          ),
-                                                          isExpanded:
-                                                              true, // Ensure the dropdown opens below the button
-                                                          items:
-                                                              // const [
-                                                              //   DropdownMenuItem(
-                                                              //     value: "class",
-                                                              //     child: Text("Class"),
-                                                              //   ),
-                                                              //   DropdownMenuItem(
-                                                              //     value: "student",
-                                                              //     child: Text("Student"),
-                                                              //   ),
-                                                              // Add more items as needed
-                                                              // ],
-
-                                                              classesList.map<
-                                                                      DropdownMenuItem<
-                                                                          String>>(
-                                                                  (value) {
-                                                            // print("classlist" + value.toString());
-                                                            return DropdownMenuItem(
-                                                              value: value[1],
-                                                              child: Text(
-                                                                  value[1]),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (valuee) {
-                                                            //   setState(() {
-
-                                                            _updatesubjectlist(
-                                                                valuee!);
-
-                                                            //   // return DropdownMenuItem(
-                                                            //   //   value: value[1],
-                                                            //   //   child: Text(value[1]),
-                                                            //   // );
-                                                            //     selectedclass = valuee.toString();
-
-                                                            // });
-                                                            // assigneestype =
-                                                            //     value.toString();
-                                                            // _selectedStudents = [];
-                                                            // _selectedClasses = [];
-                                                            // assignees = [];
-                                                            // listsubject = value;
-                                                            // print("selected class" + value.toString());
-
-                                                            //   print("valuee" + valuee.toString());
-                                                            //   print("classeslist" + classesList.toString());
-
-                                                            //   classesList.map((value) {
-                                                            //   print("value " + value.toString());
-                                                            //           if(valuee == value[1]) {
-                                                            //           setState(() {
-                                                            //   selectedclass = valuee.toString();
-
-                                                            //             listsubject = value[2].split(',');
-                                                            //           });
-                                                            //           }
-                                                            // });
-
-                                                            // print("list subject" + listsubject.toString());
-
-                                                            // coursetype = value.toString();
-                                                            // Handle the selected value
-                                                          },
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        DropdownButtonFormField<
-                                                            String>(
-                                                          value:
-                                                              selectedsubject,
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.lerp(
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    FontWeight
-                                                                        .w400,
-                                                                    0.5),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintText:
-                                                                "Select Subject",
-                                                            hintStyle:
-                                                                TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight.lerp(
-                                                                      FontWeight
-                                                                          .w500,
-                                                                      FontWeight
-                                                                          .w400,
-                                                                      0.5),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                            ),
-                                                            floatingLabelBehavior:
-                                                                FloatingLabelBehavior
-                                                                    .never,
-                                                            // labelText: "Student Transcript",
-                                                            // filled: true,
-                                                            // fillColor: Colors.white,
-                                                            border: const OutlineInputBorder(
-                                                                // borderRadius: BorderRadius.circular(40),
-                                                                ),
-                                                            // isDense: true,
-                                                            enabledBorder:
-                                                                const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      width: 1),
-                                                              // borderRadius: BorderRadius.circular(20),
-                                                            ),
-                                                          ),
-                                                          isExpanded:
-                                                              true, // Ensure the dropdown opens below the button
-                                                          items: listsubject.map<
-                                                                  DropdownMenuItem<
-                                                                      String>>(
-                                                              (value) {
-                                                            return DropdownMenuItem(
-                                                              value: value,
-                                                              child:
-                                                                  Text(value),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              // assigneestype =
-                                                              //     value.toString();
-                                                              // _selectedStudents = [];
-                                                              // _selectedClasses = [];
-                                                              // assignees = [];
-                                                              selectedsubject =
-                                                                  value!;
-                                                            });
-                                                            // coursetype = value.toString();
-                                                            // Handle the selected value
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  } else {
-                                                    return const Center(
-                                                      child: Text(
-                                                          "No Data Available"),
-                                                    );
-                                                  }
-                                                },
-                                              ),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              const TableHeader(),
-                                              SizedBox(
-                                                height: 100,
-                                                child: FutureBuilder(
-                                                  // future: MongoDatabase
-                                                  //     .getstudentsbyclasses(
-                                                  //         _selectedClasses
-                                                  //             .map((map) => map[1])
-                                                  //             .toList()),
-                                                  future: MongoDatabase
-                                                      .getstudentsbyclass(
-                                                          selectclass),
-                                                  builder: (context,
-                                                      AsyncSnapshot snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      var totalData =
-                                                          snapshot.data.length;
-
-                                                      final List<
-                                                              Map<String,
-                                                                  dynamic>>
-                                                          items =
-                                                          snapshot.data!;
-
-                                                      final List<List<String>>
-                                                          studentsList =
-                                                          items.map((map) {
-                                                        return map.values
-                                                            .map((value) =>
-                                                                value
-                                                                    .toString())
-                                                            .toList();
-                                                      }).toList();
-
-                                                      assignees = studentsList;
-                                                      print("assignees" +
-                                                          assignees.toString());
-                                                      // print("Total Data" + totalData.toString());
-                                                      print("Total Data" +
-                                                          snapshot.data
-                                                              .toString());
-
-                                                      return ListView.builder(
-                                                          itemCount: snapshot
-                                                              .data.length,
-                                                          itemBuilder:
-                                                              (context, index) {
-                                                            return StudentContainer(
-                                                                // students: StudentModel
-                                                                //     .fromJson(snapshot
-                                                                //             .data[
-                                                                //         index]));
-                                                                students:
-                                                                    snapshot.data[
-                                                                        index]);
-                                                          });
-                                                    } else {
-                                                      return const Center(
-                                                        child: Text(
-                                                            "No Data Available"),
-                                                      );
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                            ],
+                                        DropdownButtonFormField(
+                                          value: assigneestype,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.lerp(
+                                                FontWeight.w500,
+                                                FontWeight.w400,
+                                                0.5),
+                                            overflow: TextOverflow.visible,
                                           ),
+                                          decoration: InputDecoration(
+                                            hintText: "Class / Students",
+                                            hintStyle: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.lerp(
+                                                  FontWeight.w500,
+                                                  FontWeight.w400,
+                                                  0.5),
+                                              overflow: TextOverflow.visible,
+                                            ),
+                                            floatingLabelBehavior:
+                                                FloatingLabelBehavior.never,
+                                            // labelText: "Student Transcript",
+                                            // filled: true,
+                                            // fillColor: Colors.white,
+                                            border: const OutlineInputBorder(
+                                                // borderRadius: BorderRadius.circular(40),
+                                                ),
+                                            // isDense: true,
+                                            enabledBorder:
+                                                const OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 1),
+                                              // borderRadius: BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          isExpanded:
+                                              true, // Ensure the dropdown opens below the button
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: "class",
+                                              child: Text("Class"),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: "student",
+                                              child: Text("Student"),
+                                            ),
+                                            // Add more items as needed
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              assigneestype = value.toString();
+                                              _selectedStudents = [];
+                                              _selectedClasses = [];
+                                              assignees = [];
+                                            });
+                                            // coursetype = value.toString();
+                                            // Handle the selected value
+                                          },
+                                        ),
+                                        // TextField(
+                                        //   controller: courseworkname,
+                                        //   decoration: InputDecoration(
+                                        //     labelStyle: TextStyle(
+                                        //       fontSize: 20,
+                                        //       color: Colors.grey,
+                                        //       fontWeight: FontWeight.lerp(
+                                        //           FontWeight.w500,
+                                        //           FontWeight.w400,
+                                        //           0.5),
+                                        //       overflow: TextOverflow.visible,
+                                        //     ),
+                                        //     labelText: 'zzzzzzzzzzzzz',
+                                        //     border: const OutlineInputBorder(),
+                                        //     floatingLabelStyle: TextStyle(
+                                        //       fontSize: 20,
+                                        //       color: Colors.black,
+                                        //       fontWeight: FontWeight.lerp(
+                                        //           FontWeight.w500,
+                                        //           FontWeight.w400,
+                                        //           0.5),
+                                        //       overflow: TextOverflow.visible,
+                                        //     ),
+                                        //   ),
+                                        // ),
 
-                                        if (coursetype == 'extraexercise')
+                                        const SizedBox(height: 10),
+                                        if (assigneestype == 'student')
                                           Column(
                                             children: [
-                                              FutureBuilder(
-                                                future:
-                                                    MongoDatabase.getclasses(),
-                                                builder: (context,
-                                                    AsyncSnapshot snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    final List<
-                                                            Map<String,
-                                                                dynamic>>
-                                                        items = snapshot.data!;
-
-                                                    // final List<List<String>>
-                                                    classesList =
-                                                        items.map((map) {
-                                                      return map.values
-                                                          .map((value) =>
-                                                              value.toString())
-                                                          .toList();
-                                                    }).toList();
-
-                                                    // final List<String> itemNames =
-                                                    //     items.map((map) => map['name'] as String).toList();
-
-                                                    // print('item list' +
-                                                    //     classesList.toString());
-
-                                                    //     print('class subject' +
-                                                    //     classesList.toString());
-
-                                                    // print('selecteditem' +
-                                                    //     _selectedClasses.toString());
-
-                                                    return Column(
-                                                      children: [
-                                                        DropdownButtonFormField<
-                                                            String>(
-                                                          // value: assigneestype,
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.lerp(
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    FontWeight
-                                                                        .w400,
-                                                                    0.5),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintText:
-                                                                "Select Class",
-                                                            hintStyle:
-                                                                TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight.lerp(
-                                                                      FontWeight
-                                                                          .w500,
-                                                                      FontWeight
-                                                                          .w400,
-                                                                      0.5),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                            ),
-                                                            floatingLabelBehavior:
-                                                                FloatingLabelBehavior
-                                                                    .never,
-                                                            // labelText: "Student Transcript",
-                                                            // filled: true,
-                                                            // fillColor: Colors.white,
-                                                            border: const OutlineInputBorder(
-                                                                // borderRadius: BorderRadius.circular(40),
-                                                                ),
-                                                            // isDense: true,
-                                                            enabledBorder:
-                                                                const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      width: 1),
-                                                              // borderRadius: BorderRadius.circular(20),
-                                                            ),
-                                                          ),
-                                                          isExpanded:
-                                                              true, // Ensure the dropdown opens below the button
-                                                          items:
-                                                              // const [
-                                                              //   DropdownMenuItem(
-                                                              //     value: "class",
-                                                              //     child: Text("Class"),
-                                                              //   ),
-                                                              //   DropdownMenuItem(
-                                                              //     value: "student",
-                                                              //     child: Text("Student"),
-                                                              //   ),
-                                                              // Add more items as needed
-                                                              // ],
-
-                                                              classesList.map<
-                                                                      DropdownMenuItem<
-                                                                          String>>(
-                                                                  (value) {
-                                                            // print("classlist" + value.toString());
-                                                            return DropdownMenuItem(
-                                                              value: value[1],
-                                                              child: Text(
-                                                                  value[1]),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (valuee) {
-                                                            //   setState(() {
-
-                                                            _updatesubjectlist(
-                                                                valuee!);
-                                                            setState(() {
-                                                              _selectedStudents =
-                                                                  [];
-                                                            });
-
-                                                            //   // return DropdownMenuItem(
-                                                            //   //   value: value[1],
-                                                            //   //   child: Text(value[1]),
-                                                            //   // );
-                                                            //     selectedclass = valuee.toString();
-
-                                                            // });
-                                                            // assigneestype =
-                                                            //     value.toString();
-                                                            // _selectedStudents = [];
-                                                            // _selectedClasses = [];
-                                                            // assignees = [];
-                                                            // listsubject = value;
-                                                            // print("selected class" + value.toString());
-
-                                                            //   print("valuee" + valuee.toString());
-                                                            //   print("classeslist" + classesList.toString());
-
-                                                            //   classesList.map((value) {
-                                                            //   print("value " + value.toString());
-                                                            //           if(valuee == value[1]) {
-                                                            //           setState(() {
-                                                            //   selectedclass = valuee.toString();
-
-                                                            //             listsubject = value[2].split(',');
-                                                            //           });
-                                                            //           }
-                                                            // });
-
-                                                            // print("list subject" + listsubject.toString());
-
-                                                            // coursetype = value.toString();
-                                                            // Handle the selected value
-                                                          },
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        DropdownButtonFormField<
-                                                            String>(
-                                                          value:
-                                                              selectedsubject,
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.lerp(
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    FontWeight
-                                                                        .w400,
-                                                                    0.5),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintText:
-                                                                "Select Subject",
-                                                            hintStyle:
-                                                                TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight.lerp(
-                                                                      FontWeight
-                                                                          .w500,
-                                                                      FontWeight
-                                                                          .w400,
-                                                                      0.5),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .visible,
-                                                            ),
-                                                            floatingLabelBehavior:
-                                                                FloatingLabelBehavior
-                                                                    .never,
-                                                            // labelText: "Student Transcript",
-                                                            // filled: true,
-                                                            // fillColor: Colors.white,
-                                                            border: const OutlineInputBorder(
-                                                                // borderRadius: BorderRadius.circular(40),
-                                                                ),
-                                                            // isDense: true,
-                                                            enabledBorder:
-                                                                const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      width: 1),
-                                                              // borderRadius: BorderRadius.circular(20),
-                                                            ),
-                                                          ),
-                                                          isExpanded:
-                                                              true, // Ensure the dropdown opens below the button
-                                                          items: listsubject.map<
-                                                                  DropdownMenuItem<
-                                                                      String>>(
-                                                              (value) {
-                                                            return DropdownMenuItem(
-                                                              value: value,
-                                                              child:
-                                                                  Text(value),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              // assigneestype =
-                                                              //     value.toString();
-                                                              // _selectedStudents = [];
-                                                              // _selectedClasses = [];
-                                                              // assignees = [];
-                                                              selectedsubject =
-                                                                  value!;
-                                                            });
-                                                            // coursetype = value.toString();
-                                                            // Handle the selected value
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  } else {
-                                                    return const Center(
-                                                      child: Text(
-                                                          "No Data Available"),
-                                                    );
-                                                  }
-                                                },
-                                              ),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
                                               Center(
                                                 child:
                                                     // Padding(
@@ -1659,24 +879,124 @@ class _AddCoursework extends State<AddCoursework> {
                                                   ],
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
+                                              const SizedBox(height: 10),
                                               const TableHeader(),
                                               SizedBox(
                                                 height: 100,
                                                 child: FutureBuilder(
-                                                  // future: MongoDatabase
-                                                  // .getstudentsbyclasses(
-                                                  //     _selectedClasses
-                                                  //         .map((map) => map[1])
-                                                  //         .toList()),
-                                                  // future: MongoDatabase
-                                                  //     .getstudentsbyclass(
-                                                  //         selectclass),
                                                   future: MongoDatabase
                                                       .getstudentsbyname(
                                                           _selectedStudents
+                                                              .map((map) =>
+                                                                  map[1])
+                                                              .toList()),
+                                                  builder: (context,
+                                                      AsyncSnapshot snapshot) {
+                                                    if (snapshot.hasData) {
+                                                      // var totalData =
+                                                      //     snapshot.data.length;
+
+                                                      final List<
+                                                              Map<String,
+                                                                  dynamic>>
+                                                          items =
+                                                          snapshot.data!;
+
+                                                      final List<List<String>>
+                                                          studentsList =
+                                                          items.map((map) {
+                                                        return map.values
+                                                            .map((value) =>
+                                                                value
+                                                                    .toString())
+                                                            .toList();
+                                                      }).toList();
+
+                                                      assignees = studentsList;
+
+                                                      print(" selected students"+ _selectedStudents.toString());
+                                                      print("items" +
+                                                          items.toString());
+
+                                                      print("assignees" +
+                                                          assignees.toString());
+
+                                                      print("encode" +
+                                                          jsonEncode(assignees
+                                                              .toString()));
+                                                      // print("Total Data" + totalData.toString());
+                                                      // print("Total Data" + snapshot.data.toString());
+                                                      return ListView.builder(
+                                                          itemCount: snapshot
+                                                              .data.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return StudentContainer(
+                                                                // students: StudentModel.fromJson(snapshot.data[index]));
+                                                                students:
+                                                                    snapshot.data[
+                                                                        index]);
+                                                          });
+                                                    } else {
+                                                      return const Center(
+                                                        child: Text(
+                                                            "No Data Available"),
+                                                      );
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        const SizedBox(height: 10),
+                                        if (assigneestype == 'class')
+                                          Column(
+                                            children: [
+                                              Center(
+                                                child:
+                                                    // Padding(
+                                                    // padding: const EdgeInsets.all(15.0),
+                                                    // child:
+                                                    Table(
+                                                  border: TableBorder.all(
+                                                      color: Colors.white30),
+                                                  defaultVerticalAlignment:
+                                                      TableCellVerticalAlignment
+                                                          .middle,
+                                                  children: [
+                                                    TableRow(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: kPrimaryColor,
+                                                      ),
+                                                      children: [
+                                                        CustomIconButton(
+                                                          onTap:
+                                                              _showSelectClasses,
+                                                          height: 45,
+                                                          width: 500,
+                                                          child: const Text(
+                                                            "Select Class",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              TableHeader(),
+                                              SizedBox(
+                                                height: 100,
+                                                child: FutureBuilder(
+                                                  future: MongoDatabase
+                                                      .getstudentsbyclass(
+                                                          _selectedClasses
                                                               .map((map) =>
                                                                   map[1])
                                                               .toList()),
@@ -1706,9 +1026,7 @@ class _AddCoursework extends State<AddCoursework> {
                                                       print("assignees" +
                                                           assignees.toString());
                                                       // print("Total Data" + totalData.toString());
-                                                      print("Total Data" +
-                                                          snapshot.data
-                                                              .toString());
+                                                      // print("Total Data" + snapshot.data.toString());
 
                                                       return ListView.builder(
                                                           itemCount: snapshot
@@ -1720,9 +1038,7 @@ class _AddCoursework extends State<AddCoursework> {
                                                                 //     .fromJson(snapshot
                                                                 //             .data[
                                                                 //         index]));
-                                                                students:
-                                                                    snapshot.data[
-                                                                        index]);
+                                                                students: snapshot.data[index]);
                                                           });
                                                     } else {
                                                       return const Center(
@@ -1735,219 +1051,6 @@ class _AddCoursework extends State<AddCoursework> {
                                               ),
                                             ],
                                           ),
-                                        // if (assigneestype == 'student')
-                                        //   Column(
-                                        //     children: [
-                                        //       Center(
-                                        //         child:
-                                        //             // Padding(
-                                        //             // padding: const EdgeInsets.all(15.0),
-                                        //             // child:
-                                        //             Table(
-                                        //           border: TableBorder.all(
-                                        //               color: Colors.white30),
-                                        //           defaultVerticalAlignment:
-                                        //               TableCellVerticalAlignment
-                                        //                   .middle,
-                                        //           children: [
-                                        //             TableRow(
-                                        //               decoration:
-                                        //                   const BoxDecoration(
-                                        //                 color: kPrimaryColor,
-                                        //               ),
-                                        //               children: [
-                                        //                 CustomIconButton(
-                                        //                   onTap:
-                                        //                       _showSelectStudents,
-                                        //                   height: 45,
-                                        //                   width: 500,
-                                        //                   child: const Text(
-                                        //                     "Add Students",
-                                        //                     style: TextStyle(
-                                        //                       color:
-                                        //                           Colors.white,
-                                        //                       fontSize: 18,
-                                        //                     ),
-                                        //                   ),
-                                        //                 ),
-                                        //               ],
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       ),
-                                        //       const SizedBox(height: 10),
-                                        //       const TableHeader(),
-                                        //       SizedBox(
-                                        //         height: 100,
-                                        //         child: FutureBuilder(
-                                        //           future: MongoDatabase
-                                        //               .getstudentsbyname(
-                                        //                   _selectedStudents
-                                        //                       .map((map) =>
-                                        //                           map[1])
-                                        //                       .toList()),
-                                        //           builder: (context,
-                                        //               AsyncSnapshot snapshot) {
-                                        //             if (snapshot.hasData) {
-                                        //               // var totalData =
-                                        //               //     snapshot.data.length;
-
-                                        //               final List<
-                                        //                       Map<String,
-                                        //                           dynamic>>
-                                        //                   items =
-                                        //                   snapshot.data!;
-
-                                        //               final List<List<String>>
-                                        //                   studentsList =
-                                        //                   items.map((map) {
-                                        //                 return map.values
-                                        //                     .map((value) =>
-                                        //                         value
-                                        //                             .toString())
-                                        //                     .toList();
-                                        //               }).toList();
-
-                                        //               assignees = studentsList;
-
-                                        //               print(" selected students"+ _selectedStudents.toString());
-                                        //               print("items" +
-                                        //                   items.toString());
-
-                                        //               print("assignees" +
-                                        //                   assignees.toString());
-
-                                        //               print("encode" +
-                                        //                   jsonEncode(assignees
-                                        //                       .toString()));
-                                        //               // print("Total Data" + totalData.toString());
-                                        //               // print("Total Data" + snapshot.data.toString());
-                                        //               return ListView.builder(
-                                        //                   itemCount: snapshot
-                                        //                       .data.length,
-                                        //                   itemBuilder:
-                                        //                       (context, index) {
-                                        //                     return StudentContainer(
-                                        //                         // students: StudentModel.fromJson(snapshot.data[index]));
-                                        //                         students:
-                                        //                             snapshot.data[
-                                        //                                 index]);
-                                        //                   });
-                                        //             } else {
-                                        //               return const Center(
-                                        //                 child: Text(
-                                        //                     "No Data Available"),
-                                        //               );
-                                        //             }
-                                        //           },
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // const SizedBox(height: 10),
-                                        // if (assigneestype == 'class')
-                                        //   Column(
-                                        //     children: [
-                                        //       Center(
-                                        //         child:
-                                        //             // Padding(
-                                        //             // padding: const EdgeInsets.all(15.0),
-                                        //             // child:
-                                        //             Table(
-                                        //           border: TableBorder.all(
-                                        //               color: Colors.white30),
-                                        //           defaultVerticalAlignment:
-                                        //               TableCellVerticalAlignment
-                                        //                   .middle,
-                                        //           children: [
-                                        //             TableRow(
-                                        //               decoration:
-                                        //                   const BoxDecoration(
-                                        //                 color: kPrimaryColor,
-                                        //               ),
-                                        //               children: [
-                                        //                 CustomIconButton(
-                                        //                   onTap:
-                                        //                       _showSelectClasses,
-                                        //                   height: 45,
-                                        //                   width: 500,
-                                        //                   child: const Text(
-                                        //                     "Select Class",
-                                        //                     style: TextStyle(
-                                        //                       color:
-                                        //                           Colors.white,
-                                        //                       fontSize: 18,
-                                        //                     ),
-                                        //                   ),
-                                        //                 ),
-                                        //               ],
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       ),
-                                        //       const SizedBox(height: 10),
-                                        //       TableHeader(),
-                                        //       SizedBox(
-                                        //         height: 100,
-                                        //         child: FutureBuilder(
-                                        //           future: MongoDatabase
-                                        //               .getstudentsbyclass(
-                                        //                   _selectedClasses
-                                        //                       .map((map) =>
-                                        //                           map[1])
-                                        //                       .toList()),
-                                        //           builder: (context,
-                                        //               AsyncSnapshot snapshot) {
-                                        //             if (snapshot.hasData) {
-                                        //               var totalData =
-                                        //                   snapshot.data.length;
-
-                                        //               final List<
-                                        //                       Map<String,
-                                        //                           dynamic>>
-                                        //                   items =
-                                        //                   snapshot.data!;
-
-                                        //               final List<List<String>>
-                                        //                   studentsList =
-                                        //                   items.map((map) {
-                                        //                 return map.values
-                                        //                     .map((value) =>
-                                        //                         value
-                                        //                             .toString())
-                                        //                     .toList();
-                                        //               }).toList();
-
-                                        //               assignees = studentsList;
-                                        //               print("assignees" +
-                                        //                   assignees.toString());
-                                        //               // print("Total Data" + totalData.toString());
-                                        //               print("Total Data" + snapshot.data.toString());
-
-                                        //               return ListView.builder(
-                                        //                   itemCount: snapshot
-                                        //                       .data.length,
-                                        //                   itemBuilder:
-                                        //                       (context, index) {
-                                        //                     return StudentContainer(
-                                        //                         // students: StudentModel
-                                        //                         //     .fromJson(snapshot
-                                        //                         //             .data[
-                                        //                         //         index]));
-                                        //                         students: snapshot.data[index]);
-                                        //                   });
-                                        //             } else {
-                                        //               return const Center(
-                                        //                 child: Text(
-                                        //                     "No Data Available"),
-                                        //               );
-                                        //             }
-                                        //           },
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-
                                         const SizedBox(height: 10),
                                       ],
                                     ),
@@ -1980,37 +1083,18 @@ class _AddCoursework extends State<AddCoursework> {
                                               48), // Set the width to fill the available space
                                         ),
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
-                                          // Text(
-                                          //   'Coursework Content',
-                                          //   style: TextStyle(
-                                          //       color: Colors.black,
-                                          //       fontSize: 20),
-                                          // ),
-                                          // Icon(
-                                          //   Icons.arrow_drop_down,
-                                          //   color: Colors.black,
-                                          // ),
-
-                                          Expanded(
-                                            child: Text(
-                                              'Coursework Content',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20),
-                                            ),
+                                          Text(
+                                            'Coursework Content',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20),
                                           ),
-                                          if (isContent4Visible)
-                                            Icon(
-                                              Icons.arrow_drop_up,
-                                              color: Colors.black,
-                                            ),
-                                          if (!isContent4Visible)
-                                            Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.black,
-                                            ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.black,
+                                          ),
                                         ],
                                       )),
                                 ),
@@ -2412,8 +1496,7 @@ class _AddCoursework extends State<AddCoursework> {
                             courseworkname.text,
                             assigneddate!,
                             duedate!,
-                            // assigneestype!,
-                            selectedsubject,
+                            assigneestype!,
                             assignees,
                             courseworkcontent.text);
                         // _insertCoursework(coursetype, courseworkname.text, assinggn, sdsd, sssss, assignees, courseworkcontent.text);
@@ -2481,8 +1564,7 @@ class _AddCoursework extends State<AddCoursework> {
       String courseworkname,
       DateTime assigneddate,
       DateTime duedate,
-      // String assigneestype,
-      String schoolsubject,
+      String assigneestype,
       List<List<String>> assignees,
       String courseworkcontent) async {
     final List<StudentModel> studentslist = assignees.map((userData) {
@@ -2525,7 +1607,7 @@ class _AddCoursework extends State<AddCoursework> {
         name: courseworkname,
         assigndate: assigneddate,
         duedate: duedate,
-        schoolsubject: schoolsubject,
+        assigneestype: assigneestype,
         assigneeslist: studentsubmissionstatus,
         content: courseworkcontent);
     await MongoDatabase.insertcoursework(data);

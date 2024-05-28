@@ -125,9 +125,7 @@ class _AddMaterialNotice extends State<AddMaterialNotice> {
               print('selecteditem' + _selectedStudents.toString());
 
               return SelectMongodbData(
-                  title: "Select Students",
-                  items: studentsList,
-                  selecteditems: _selectedStudents);
+                  items: studentsList, selecteditems: _selectedStudents);
               // MultiSelect(items: itemNames,
               // selecteditems: _selectedItems);
             } else {
@@ -184,9 +182,7 @@ class _AddMaterialNotice extends State<AddMaterialNotice> {
               print('selecteditem' + _selectedClasses.toString());
 
               return SelectMongodbData(
-                  title: "Select Classes",
-                  items: classesList,
-                  selecteditems: _selectedClasses);
+                  items: classesList, selecteditems: _selectedClasses);
               // MultiSelect(items: itemNames,
               // selecteditems: _selectedItems);
             } else {
@@ -997,7 +993,7 @@ class _AddMaterialNotice extends State<AddMaterialNotice> {
                                                 height: 100,
                                                 child: FutureBuilder(
                                                   future: MongoDatabase
-                                                      .getstudentsbyclasses(
+                                                      .getstudentsbyclass(
                                                           _selectedClasses
                                                               .map((map) =>
                                                                   map[1])
@@ -1040,9 +1036,7 @@ class _AddMaterialNotice extends State<AddMaterialNotice> {
                                                                 //     .fromJson(snapshot
                                                                 //             .data[
                                                                 //         index]));
-                                                                students:
-                                                                    snapshot.data[
-                                                                        index]);
+                                                                students: snapshot.data[index]);
                                                           });
                                                     } else {
                                                       return const Center(

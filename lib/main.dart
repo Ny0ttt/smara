@@ -1,24 +1,11 @@
-// import 'package:education_app/dbHelper/mongodb.dart';
-// import 'package:education_app/dbHelper/userprovider.dart';
-// import 'package:education_app/routes/route_helper.dart';
-// // import 'package:education_app/screens/addcoursework_screen.dart';
-// // import 'package:education_app/screens/base_screen.dart';
-// import 'package:education_app/screens/login_screen.dart';
-// // import 'package:flutter/foundation.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_hub/screens/testdb_screen.dart';
 
 import 'dbHelper/mongodb.dart';
 import 'dbHelper/userprovider.dart';
 import 'routes/route_helper.dart';
 import 'screens/login_screen.dart';
-import 'screens/teacherdetails_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,31 +20,6 @@ void main() async {
   );
 }
 
-// class Counter with ChangeNotifier, DiagnosticableTreeMixin {
-//   int _count = 222;
-
-//   int get count => _count;
-
-//   // int get counttambahsatu => _count + 1;
-
-//   void increment() {
-//     _count++;
-//     notifyListeners();
-//   }
-
-//   void setto2881() {
-//   _count = 2881;
-//     notifyListeners();
-
-//   }
-
-//   /// Makes `Counter` readable inside the devtools by listing all of its properties
-//   @override
-//   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-//     super.debugFillProperties(properties);
-//     properties.add(IntProperty('count', count));
-//   }
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -93,10 +55,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const SafeArea(child: LoginScreen()) ,
-      // home: const SafeArea(child: TestDbLogin()),
-      // home: const SafeArea(child: TeacherDetailsScreen()),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
     );
   }
 }
+

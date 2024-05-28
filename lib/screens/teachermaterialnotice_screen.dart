@@ -22,7 +22,7 @@ import 'package:mongo_dart/mongo_dart.dart' as m;
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_hub/models/materialnotice_model.dart';
-import 'package:smart_hub/screens/teacheraddfeedback_screen.dart';
+import 'package:smart_hub/screens/addfeedback_screen.dart';
 //import 'package:video_player/video_player.dart';
 
 import '../constants/color.dart';
@@ -40,7 +40,7 @@ import '../widgets/lesson_card.dart';
 import '../widgets/search_testfield.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
-import 'adminuploaddata_screen.dart';
+import 'uploaddata_screen.dart';
 
 class TeacherMaterial extends StatefulWidget {
   // final String title;
@@ -108,75 +108,51 @@ class _TeacherMaterial extends State<TeacherMaterial> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-      height: 200,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.1, 0.5],
-          colors: [
-            Color(0xff886ff2),
-            Color(0xff6849ef),
-          ],
-        ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Hello,\nGood Morning",
-                textScaler: const TextScaler.linear(0.8),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              CircleButton(
-                icon: Icons.notifications,
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          //     const Center(
-          //   child: Column(
-          //     mainAxisSize: MainAxisSize.min,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       Text('You have pushed the button this many times:'),
-
-          //       /// Extracted as a separate widget for performance optimization.
-          //       /// As a separate widget, it will rebuild independently from [MyHomePage].
-          //       ///
-          //       /// This is totally optional (and rarely needed).
-          //       /// Similarly, we could also use [Consumer] or [Selector].
-          //       Name(),
-          //     ],
-          //   ),
-          // ),
-          Center(
-            child: Text(
-              // "Aly Zanaty",
-              // "{$context.watch<UserProvider>().name}",
-              '${context.watch<UserProvider>().nickname}',
-              key: const Key('counterState'),
-              textScaler: const TextScaler.linear(3.5),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-
-          // const SearchTextField()
-        ],
-      ),
-    ),
+                  padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                  height: 200,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.1, 0.7],
+                      colors: [
+                        // Color(0xff886ff2),
+                        Color.fromARGB(187, 42, 219, 78),
+                        Color.fromARGB(255, 37, 211, 230),
+                        // Color(0xff6849ef),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hello,\nGood Morning",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          CircleButton(
+                            icon: Icons.notifications,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const SearchTextFieldPlacehold(
+                        placeholder: "Search Coursework",
+                      )
+                    ],
+                  ),
+                ),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 //   child: Row(
@@ -435,8 +411,9 @@ class _CourseworkList extends State<CourseworkList> {
         // Padding(padding: const EdgeInsets.all(10), child:
         Expanded(
             child: FutureBuilder(
-                future: MongoDatabase.getmaterialnoticebyteacherid(m.ObjectId.parse(
-                    '${context.watch<UserProvider>().id}'.substring(10, 34))),
+                future: MongoDatabase.getmaterialnoticebyteacherid(
+                    m.ObjectId.parse('${context.watch<UserProvider>().id}'
+                        .substring(10, 34))),
                 builder: (context, AsyncSnapshot snapshot) {
                   // print('${context.read<UserProvider>().id}'.substring(10, 34));
                   // print(m.ObjectId.parse('${context.watch<UserProvider>().id}'.substring(10, 34)));
@@ -793,8 +770,8 @@ class MaterialNoticeContainer extends StatelessWidget {
       //     MaterialPageRoute(
       //         builder: (context) => const BaseScreen())),
       onTap: () {
-        function(
-            MaterialNoticeListDetails(changetab: function, materialnotice: materialnotice));
+        function(MaterialNoticeListDetails(
+            changetab: function, materialnotice: materialnotice));
         // print(coursework.id);
         // context.read<UserProvider>().setuser(users);
 
@@ -837,7 +814,6 @@ class MaterialNoticeContainer extends StatelessWidget {
                   Text(materialnotice.title),
                   Text(materialnotice.content),
                   // Text( DateFormat('dd-MM-yyy').format(coursework.assigndate)),
-
                 ]),
               ),
               // Text(
@@ -957,6 +933,7 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
                             print("inside test" + userData.toString());
 
                             var encodedstssring = jsonEncode(userData);
+
                             Map<String, dynamic> assigneeslistsss =
                                 jsonDecode(encodedstssring);
 
@@ -980,9 +957,10 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
                         }
                       }))),
         ),
+
         // SizedBox(
         //   height: 80,
-        //   child: 
+        //   child:
         //   AddFeedbackButton(
         //     coursework: widget.materialnotice,
         //   ),
@@ -1049,7 +1027,8 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
 
 class MaterialNoticeDetailsStudentContainer extends StatelessWidget {
   final AssignStudentModel assignees;
-  const MaterialNoticeDetailsStudentContainer({Key? key, required this.assignees})
+  const MaterialNoticeDetailsStudentContainer(
+      {Key? key, required this.assignees})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

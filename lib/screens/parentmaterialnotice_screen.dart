@@ -1,17 +1,4 @@
-// import 'package:education_app/constants/color.dart';
-// import 'package:education_app/dbHelper/mongodb.dart';
-// import 'package:education_app/dbHelper/userprovider.dart';
-// // import 'package:education_app/constants/icons.dart';
-// // import 'package:education_app/models/category.dart';
-// import 'package:education_app/models/coursework.dart';
-// import 'package:education_app/models/coursework_model.dart';
-// import 'package:education_app/models/lesson.dart';
-// // import 'package:education_app/models/users_modeltemporary.dart';
-// import 'package:education_app/routes/route_helper.dart';
-// import 'package:education_app/widgets/circle_button.dart';
-// import 'package:education_app/widgets/custom_icon_button.dart';
-// // import 'package:education_app/widgets/custom_video_player.dart';
-// import 'package:education_app/widgets/search_testfield.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -22,8 +9,7 @@ import 'package:mongo_dart/mongo_dart.dart' as m;
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_hub/models/materialnotice_model.dart';
-import 'package:smart_hub/screens/teacheraddfeedback_screen.dart';
-//import 'package:video_player/video_player.dart';
+import 'package:smart_hub/screens/addfeedback_screen.dart';
 
 import '../constants/color.dart';
 import '../dbHelper/mongodb.dart';
@@ -40,13 +26,13 @@ import '../widgets/lesson_card.dart';
 import '../widgets/search_testfield.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
-import 'adminuploaddata_screen.dart';
+import 'uploaddata_screen.dart';
 
 class ParentMaterialNotice extends StatefulWidget {
-  // final String title;
+
   const ParentMaterialNotice({
     Key? key,
-    // required this.title,
+
   }) : super(key: key);
 
   @override
@@ -54,7 +40,7 @@ class ParentMaterialNotice extends StatefulWidget {
 }
 
 class _ParentMaterialNotice extends State<ParentMaterialNotice> {
-  // ignore: unused_field
+
   int _selectedTag = 0;
 
   void changeTab(int index) {
@@ -63,18 +49,7 @@ class _ParentMaterialNotice extends State<ParentMaterialNotice> {
     });
   }
 
-  //   static const List<Color> _color = <Color>[
-  //   Colors.black,
-  //   Colors.yellow,
-  //   Colors.green,
-  //   Colors.red,
-  //   Colors.blue,
-  //   Colors.black,
-  //   Colors.yellow,
-  //   Colors.green,
-  //   Colors.red,
-  //   Colors.blue,
-  // ];
+
 
   static Widget? currentwidget;
 
@@ -90,11 +65,10 @@ class _ParentMaterialNotice extends State<ParentMaterialNotice> {
     });
   }
 
-  //  Widget courselistwidget = CourseworkList(function: _changewidget);
+
 
   @override
   Widget build(BuildContext context) {
-    // currentwidget = CourseworkList(function: _changewidget,);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
@@ -102,81 +76,57 @@ class _ParentMaterialNotice extends State<ParentMaterialNotice> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
-            // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+
             padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-      height: 200,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.1, 0.5],
-          colors: [
-            Color(0xff886ff2),
-            Color(0xff6849ef),
-          ],
-        ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Hello,\nGood Morning",
-                textScaler: const TextScaler.linear(0.8),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              CircleButton(
-                icon: Icons.notifications,
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          //     const Center(
-          //   child: Column(
-          //     mainAxisSize: MainAxisSize.min,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       Text('You have pushed the button this many times:'),
-
-          //       /// Extracted as a separate widget for performance optimization.
-          //       /// As a separate widget, it will rebuild independently from [MyHomePage].
-          //       ///
-          //       /// This is totally optional (and rarely needed).
-          //       /// Similarly, we could also use [Consumer] or [Selector].
-          //       Name(),
-          //     ],
-          //   ),
-          // ),
-          Center(
-            child: Text(
-              // "Aly Zanaty",
-              // "{$context.watch<UserProvider>().name}",
-              '${context.watch<UserProvider>().nickname}',
-              key: const Key('counterState'),
-              textScaler: const TextScaler.linear(3.5),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-
-          // const SearchTextField()
-        ],
-      ),
-    ),
+                  padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                  height: 200,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.1, 0.7],
+                      colors: [
+                        // Color(0xff886ff2),
+                        Color.fromARGB(187, 42, 219, 78),
+                        Color.fromARGB(255, 37, 211, 230),
+                        // Color(0xff6849ef),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hello,\nGood Morning",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          CircleButton(
+                            icon: Icons.notifications,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const SearchTextFieldPlacehold(
+                        placeholder: "Search Coursework",
+                      )
+                    ],
+                  ),
+                ),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 //   child: Row(

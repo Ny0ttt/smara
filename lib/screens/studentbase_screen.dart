@@ -16,10 +16,9 @@ import '../constants/size.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
 import 'studentcoursework_screen.dart';
-import 'studentdashboard_screen.dart';
 import 'studentmaterialnotice_screen.dart';
 import 'teachercoursework_screen.dart';
-import 'adminuploaddata_screen.dart';
+import 'uploaddata_screen.dart';
 
 class StudentBaseScreen extends StatefulWidget {
   const StudentBaseScreen({Key? key}) : super(key: key);
@@ -32,8 +31,7 @@ class _StudentBaseScreen extends State<StudentBaseScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    // FeaturedScreen(),
-    StudentDashboard(),
+    FeaturedScreen(),
     StudentCoursework(),
     StudentMaterialNotice(),
     Logout(),
