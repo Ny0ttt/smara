@@ -32,18 +32,18 @@ import '../widgets/circle_button.dart';
 import 'parentmaterialnotice_screen.dart';
 import 'teachercoursework_screen.dart';
 
-class TeacherDashboard extends StatefulWidget {
+class ParentDashboard extends StatefulWidget {
   // final String title;
-  const TeacherDashboard({
+  const ParentDashboard({
     Key? key,
     // required this.title,
   }) : super(key: key);
 
   @override
-  _TeacherDashboard createState() => _TeacherDashboard();
+  _ParentDashboard createState() => _ParentDashboard();
 }
 
-class _TeacherDashboard extends State<TeacherDashboard> {
+class _ParentDashboard extends State<ParentDashboard> {
   // ignore: unused_field
   int _selectedTag = 0;
 
@@ -189,10 +189,8 @@ class _CourseworkList extends State<CourseworkList> {
                 // future: MongoDatabase.getcourseworkbyteacherid(m.ObjectId.parse(
                 //     '${context.watch<UserProvider>().id}'.substring(10, 34))),
                 future: Future.wait([
-                  MongoDatabase.getcourseworkbyteacherid(m.ObjectId.parse(
-                      '${context.watch<UserProvider>().id}'.substring(10, 34))),
-                  MongoDatabase.getmaterialnoticebyteacherid(m.ObjectId.parse(
-                      '${context.watch<UserProvider>().id}'.substring(10, 34))),
+                  MongoDatabase.getcourseworkbychildren(context.watch<UserProvider>().children),
+                  MongoDatabase.getmaterialnoticebychildren(context.watch<UserProvider>().children),
                 ]),
                 builder: (context, AsyncSnapshot snapshot) {
                   // print('${context.read<UserProvider>().id}'.substring(10, 34));
@@ -201,28 +199,39 @@ class _CourseworkList extends State<CourseworkList> {
                   if (snapshot.hasData) {
                     // var totalData = snapshot.data.length;
 
-                    final List<Map<String, dynamic>> items1 = snapshot.data![0];
-                    final List<Map<String, dynamic>> items2 = snapshot.data![1];
+                    // final List<Map<String, dynamic>> items1 = snapshot.data![0];
+                    // final List<Map<String, dynamic>> items2 = snapshot.data![1];
 
-                    final List<CourseworkModel> courseworklist =
-                        items1.map((map) {
-                      return CourseworkModel.fromJson(map);
-                    }).toList();
+                    final List<CourseworkModel> courseworklist = snapshot.data![0];
+                    final List<MaterialNoticeModel> materialnoticelist = snapshot.data![1];
 
-                    final List<MaterialNoticeModel> materialnoticelist =
-                        items2.map((map) {
-                      return MaterialNoticeModel.fromJson(map);
-                    }).toList();
+                    // final List<CourseworkModel> courseworklist =
+                    //     items1.map((map) {
+                    //   return CourseworkModel.fromJson(map);
+                    // }).toList();
+
+                    // final List<MaterialNoticeModel> materialnoticelist =
+                    //     items2.map((map) {
+                    //   return MaterialNoticeModel.fromJson(map);
+                    // }).toList();
 
                     Set<DateTime> courseworkuniquedates = {};
                     Set<DateTime> materialnoticeuniquedates = {};
+
+                    // courseworkuniquedates =
+                    //     courseworklist.map((e) => e.duedate).toSet();
+                    // materialnoticeuniquedates =
+                    //     materialnoticelist.map((e) => e.assigndate).toSet();
+
 
                     courseworkuniquedates =
                         courseworklist.map((e) => e.duedate).toSet();
                     materialnoticeuniquedates =
                         materialnoticelist.map((e) => e.assigndate).toSet();
+
+
                     // print(courseworklist.map((e) => print(e[4])));
-                    print(courseworklist.map((e) => e.duedate).toSet());
+                    // print(courseworklist.map((e) => e.duedate).toSet());
                     // var jsonstring = jsonEncode(courseworklist);
                     // print(jsonDecode(jsonstring).toString());
                     // print(courseworklist.toList().toString());

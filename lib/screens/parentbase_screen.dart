@@ -16,6 +16,7 @@ import '../constants/size.dart';
 import 'featuerd_screen.dart';
 import 'logout_screen.dart';
 import 'parentcoursework_screen.dart';
+import 'parentdashboard_screen.dart';
 import 'parentmaterialnotice_screen.dart';
 import 'studentcoursework_screen.dart';
 import 'studentmaterialnotice_screen.dart';
@@ -33,7 +34,8 @@ class _ParentBaseScreen extends State<ParentBaseScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    FeaturedScreen(),
+    // FeaturedScreen(),
+ParentDashboard(),
     ParentCoursework(),
     ParentMaterialNotice(),
     Logout(),
