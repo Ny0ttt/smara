@@ -411,8 +411,9 @@ class _CourseworkList extends State<CourseworkList> {
         // Padding(padding: const EdgeInsets.all(10), child:
         Expanded(
             child: FutureBuilder(
-                future: MongoDatabase.getmaterialnoticebyteacherid(m.ObjectId.parse(
-                    '${context.watch<UserProvider>().id}'.substring(10, 34))),
+                future: MongoDatabase.getmaterialnoticebyteacherid(
+                    m.ObjectId.parse('${context.watch<UserProvider>().id}'
+                        .substring(10, 34))),
                 builder: (context, AsyncSnapshot snapshot) {
                   // print('${context.read<UserProvider>().id}'.substring(10, 34));
                   // print(m.ObjectId.parse('${context.watch<UserProvider>().id}'.substring(10, 34)));
@@ -769,8 +770,8 @@ class MaterialNoticeContainer extends StatelessWidget {
       //     MaterialPageRoute(
       //         builder: (context) => const BaseScreen())),
       onTap: () {
-        function(
-            MaterialNoticeListDetails(changetab: function, materialnotice: materialnotice));
+        function(MaterialNoticeListDetails(
+            changetab: function, materialnotice: materialnotice));
         // print(coursework.id);
         // context.read<UserProvider>().setuser(users);
 
@@ -813,7 +814,6 @@ class MaterialNoticeContainer extends StatelessWidget {
                   Text(materialnotice.title),
                   Text(materialnotice.content),
                   // Text( DateFormat('dd-MM-yyy').format(coursework.assigndate)),
-
                 ]),
               ),
               // Text(
@@ -933,6 +933,7 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
                             print("inside test" + userData.toString());
 
                             var encodedstssring = jsonEncode(userData);
+
                             Map<String, dynamic> assigneeslistsss =
                                 jsonDecode(encodedstssring);
 
@@ -956,9 +957,10 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
                         }
                       }))),
         ),
+
         // SizedBox(
         //   height: 80,
-        //   child: 
+        //   child:
         //   AddFeedbackButton(
         //     coursework: widget.materialnotice,
         //   ),
@@ -1025,7 +1027,8 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
 
 class MaterialNoticeDetailsStudentContainer extends StatelessWidget {
   final AssignStudentModel assignees;
-  const MaterialNoticeDetailsStudentContainer({Key? key, required this.assignees})
+  const MaterialNoticeDetailsStudentContainer(
+      {Key? key, required this.assignees})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
