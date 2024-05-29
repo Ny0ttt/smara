@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="smara"
+        android:label="SMART HUB"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
