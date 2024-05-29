@@ -1,27 +1,44 @@
+// import 'package:education_app/constants/color.dart';
+// import 'package:education_app/constants/icons.dart';
+// import 'package:education_app/constants/size.dart';
+// import 'package:education_app/screens/featuerd_screen.dart';
+// import 'package:education_app/screens/login_screen.dart';
+// import 'package:education_app/screens/logout_screen.dart';
+// // import 'package:education_app/screens/teachercoursework_screen.dart';
+// import 'package:education_app/screens/teachercoursework_screen.dart';
+// // import 'package:education_app/screens/update_student.dart';
+// import 'package:education_app/screens/uploaddata_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/color.dart';
 import '../constants/icons.dart';
 import '../constants/size.dart';
 import 'featuerd_screen.dart';
+import 'logout_screen.dart';
+import 'parentcoursework_screen.dart';
+import 'parentmaterialnotice_screen.dart';
+import 'studentcoursework_screen.dart';
+import 'studentmaterialnotice_screen.dart';
+import 'teachercoursework_screen.dart';
 import 'uploaddata_screen.dart';
 
-class BaseScreen extends StatefulWidget {
-  const BaseScreen({Key? key}) : super(key: key);
+class ParentBaseScreen extends StatefulWidget {
+  const ParentBaseScreen({Key? key}) : super(key: key);
 
   @override
-  _BaseScreenState createState() => _BaseScreenState();
+  _ParentBaseScreen createState() => _ParentBaseScreen();
 }
 
-class _BaseScreenState extends State<BaseScreen> {
+class _ParentBaseScreen extends State<ParentBaseScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
     FeaturedScreen(),
-    FeaturedScreen(),
-    UploadData(),
-    FeaturedScreen(),
+    ParentCoursework(),
+    ParentMaterialNotice(),
+    Logout(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +60,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 icFeaturedOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Featured",
+              label: "Home",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
@@ -54,7 +71,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 icLearningOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "My Learning",
+              label: "Coursework",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
@@ -65,7 +82,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 icWishlistOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Wishlist",
+              label: "Material\n  Notice  ",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
@@ -76,7 +93,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 icSettingOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Settings",
+              label: "Profile",
             ),
           ],
           currentIndex: _selectedIndex,

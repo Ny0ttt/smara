@@ -118,10 +118,12 @@ class _StudentCoursework extends State<StudentCoursework> {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0.1, 0.5],
+                      stops: [0.1, 0.7],
                       colors: [
-                        Color(0xff886ff2),
-                        Color(0xff6849ef),
+                        // Color(0xff886ff2),
+                        Color.fromARGB(187, 42, 219, 78),
+                        Color.fromARGB(255, 37, 211, 230),
+                        // Color(0xff6849ef),
                       ],
                     ),
                   ),
@@ -843,12 +845,15 @@ class _CourseworkListDetails extends State<CourseworkListDetails> {
   Widget build(BuildContext context) {
   print("coursework assigneeslist" + widget.coursework.toString());
   print("coursework assigneeslist" + widget.coursework.content.toString());
-  print("coursework assigneeslist" + jsonDecode(widget.coursework.assigneeslist[7]).map((studentt) {
+  // print("coursework assigneeslist" + jsonDecode(widget.coursework.assigneeslist[7]).map((studentt) {
+  print("coursework assigneeslist" + widget.coursework.assigneeslist.map((studentt) {
         // var filteredAssignees = studentt["assigneeslist"].where((student) {
-        var studentModel = AssignStudentModel.fromJson(studentt);
+        // var studentModel = AssignStudentModel.fromJson(studentt);
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(studentt));
         // if(studentModel.student.studentid == 'UK0192')
         if(studentModel.student.studentid == '${context.watch<UserProvider>().matric}')
-        {return AssignStudentModel.fromJson(studentt).feedback; } 
+        // {return AssignStudentModel.fromJson(studentt).feedback; } 
+        {return AssignStudentModel.fromJson(jsonDecode(studentt)).feedback; } 
         
       // }); 
       
@@ -874,9 +879,11 @@ class _CourseworkListDetails extends State<CourseworkListDetails> {
   //   return null;
   // }).where((student) => student != null).cast<AssignStudentModel>().toList();
 
-      String feedback = jsonDecode(widget.coursework.assigneeslist[7]).map((studentt) {
+      // String feedback = jsonDecode(widget.coursework.assigneeslist[7]).map((studentt) {
+      String feedback = widget.coursework.assigneeslist.map((studentt) {
         // var filteredAssignees = studentt["assigneeslist"].where((student) {
-        var studentModel = AssignStudentModel.fromJson(studentt);
+        // var studentModel = AssignStudentModel.fromJson(studentt);
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(studentt));
         // if(studentModel.student.studentid == 'UK0192')
         if(studentModel.student.studentid == '${context.watch<UserProvider>().matric}')
         // {return AssignStudentModel.fromJson(studentt).feedback; } 

@@ -1,17 +1,4 @@
-// import 'package:education_app/constants/color.dart';
-// import 'package:education_app/dbHelper/mongodb.dart';
-// import 'package:education_app/dbHelper/userprovider.dart';
-// // import 'package:education_app/constants/icons.dart';
-// // import 'package:education_app/models/category.dart';
-// import 'package:education_app/models/coursework.dart';
-// import 'package:education_app/models/coursework_model.dart';
-// import 'package:education_app/models/lesson.dart';
-// // import 'package:education_app/models/users_modeltemporary.dart';
-// import 'package:education_app/routes/route_helper.dart';
-// import 'package:education_app/widgets/circle_button.dart';
-// import 'package:education_app/widgets/custom_icon_button.dart';
-// // import 'package:education_app/widgets/custom_video_player.dart';
-// import 'package:education_app/widgets/search_testfield.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -23,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_hub/models/materialnotice_model.dart';
 import 'package:smart_hub/screens/addfeedback_screen.dart';
-//import 'package:video_player/video_player.dart';
 
 import '../constants/color.dart';
 import '../dbHelper/mongodb.dart';
@@ -42,19 +28,19 @@ import 'featuerd_screen.dart';
 import 'logout_screen.dart';
 import 'uploaddata_screen.dart';
 
-class TeacherMaterial extends StatefulWidget {
-  // final String title;
-  const TeacherMaterial({
+class ParentMaterialNotice extends StatefulWidget {
+
+  const ParentMaterialNotice({
     Key? key,
-    // required this.title,
+
   }) : super(key: key);
 
   @override
-  _TeacherMaterial createState() => _TeacherMaterial();
+  _ParentMaterialNotice createState() => _ParentMaterialNotice();
 }
 
-class _TeacherMaterial extends State<TeacherMaterial> {
-  // ignore: unused_field
+class _ParentMaterialNotice extends State<ParentMaterialNotice> {
+
   int _selectedTag = 0;
 
   void changeTab(int index) {
@@ -63,25 +49,14 @@ class _TeacherMaterial extends State<TeacherMaterial> {
     });
   }
 
-  //   static const List<Color> _color = <Color>[
-  //   Colors.black,
-  //   Colors.yellow,
-  //   Colors.green,
-  //   Colors.red,
-  //   Colors.blue,
-  //   Colors.black,
-  //   Colors.yellow,
-  //   Colors.green,
-  //   Colors.red,
-  //   Colors.blue,
-  // ];
+
 
   static Widget? currentwidget;
 
   @override
   void initState() {
     super.initState();
-    currentwidget = CourseworkList(function: _changewidget);
+    currentwidget = MaterialNoticeList(function: _changewidget);
   }
 
   void _changewidget(Widget widget) {
@@ -90,11 +65,10 @@ class _TeacherMaterial extends State<TeacherMaterial> {
     });
   }
 
-  //  Widget courselistwidget = CourseworkList(function: _changewidget);
+
 
   @override
   Widget build(BuildContext context) {
-    // currentwidget = CourseworkList(function: _changewidget,);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
@@ -102,7 +76,7 @@ class _TeacherMaterial extends State<TeacherMaterial> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
-            // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+
             padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,15 +324,15 @@ class _TeacherMaterial extends State<TeacherMaterial> {
   }
 }
 
-class CourseworkList extends StatefulWidget {
+class MaterialNoticeList extends StatefulWidget {
   final Function function;
-  const CourseworkList({Key? key, required this.function}) : super(key: key);
+  const MaterialNoticeList({Key? key, required this.function}) : super(key: key);
 
   @override
-  _CourseworkList createState() => _CourseworkList();
+  _MaterialNoticeList createState() => _MaterialNoticeList();
 }
 
-class _CourseworkList extends State<CourseworkList> {
+class _MaterialNoticeList extends State<MaterialNoticeList> {
   @override
   Widget build(BuildContext context) {
     return
@@ -372,7 +346,7 @@ class _CourseworkList extends State<CourseworkList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Material Notice",
+                "Material Notices",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               // TextButton(
@@ -411,8 +385,10 @@ class _CourseworkList extends State<CourseworkList> {
         // Padding(padding: const EdgeInsets.all(10), child:
         Expanded(
             child: FutureBuilder(
-                future: MongoDatabase.getmaterialnoticebyteacherid(m.ObjectId.parse(
-                    '${context.watch<UserProvider>().id}'.substring(10, 34))),
+                // future: MongoDatabase.getcourseworkbyteacherid(m.ObjectId.parse(
+                //     '${context.watch<UserProvider>().id}'.substring(10, 34))),
+                // future: MongoDatabase.getmaterialnoticebystudent('${context.watch<UserProvider>().matric}'),
+                future: MongoDatabase.getmaterialnoticebychildren(context.watch<UserProvider>().children),
                 builder: (context, AsyncSnapshot snapshot) {
                   // print('${context.read<UserProvider>().id}'.substring(10, 34));
                   // print(m.ObjectId.parse('${context.watch<UserProvider>().id}'.substring(10, 34)));
@@ -426,9 +402,11 @@ class _CourseworkList extends State<CourseworkList> {
                         itemBuilder: (context, index) {
                           return MaterialNoticeContainer(
                               function: widget.function,
-                              materialnotice: MaterialNoticeModel.fromJson(
+                              materialnotice: 
+                              // CourseworkModel.fromJson(
                                   // snapshot.data[index]), color: _color.elementAt(int.parse(index.toString()[0])));
-                                  snapshot.data[index]),
+                                  // snapshot.data[index]),
+                                  snapshot.data[index],
                               color: Colors.black);
                         });
                   } else {
@@ -437,10 +415,10 @@ class _CourseworkList extends State<CourseworkList> {
                     );
                   }
                 })),
-        const SizedBox(
-          height: 80,
-          child: AddNewCoursework(),
-        ),
+        // const SizedBox(
+        //   height: 80,
+        //   child: AddNewCoursework(),
+        // ),
       ],
     ));
     // );
@@ -603,153 +581,6 @@ class CourseCard extends StatelessWidget {
   }
 }
 
-class PlayList extends StatelessWidget {
-  const PlayList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        separatorBuilder: (_, __) {
-          return const SizedBox(
-            height: 20,
-          );
-        },
-        padding: const EdgeInsets.only(top: 20, bottom: 40),
-        shrinkWrap: true,
-        itemCount: lessonList.length,
-        itemBuilder: (_, index) {
-          return LessonCard(lesson: lessonList[index]);
-        },
-      ),
-    );
-  }
-}
-
-class Description extends StatelessWidget {
-  const Description({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 20.0),
-      child: Text(
-          "Build Flutter iOS and Android Apps with a Single Codebase: Learn Google's Flutter Mobile Development Framework & Dart"),
-    );
-  }
-}
-
-class CustomTabView extends StatefulWidget {
-  final Function(int) changeTab;
-  final int index;
-  const CustomTabView({Key? key, required this.changeTab, required this.index})
-      : super(key: key);
-
-  @override
-  State<CustomTabView> createState() => _CustomTabViewState();
-}
-
-class _CustomTabViewState extends State<CustomTabView> {
-  final List<String> _tags = ["Playlist (22)", "Description"];
-
-  Widget _buildTags(int index) {
-    return GestureDetector(
-      onTap: () {
-        widget.changeTab(index);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * .08, vertical: 15),
-        decoration: BoxDecoration(
-          color: widget.index == index ? kPrimaryColor : null,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(
-          _tags[index],
-          style: TextStyle(
-            color: widget.index != index ? Colors.black : Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.grey.shade200,
-      ),
-      child: Row(
-        children: _tags
-            .asMap()
-            .entries
-            .map((MapEntry map) => _buildTags(map.key))
-            .toList(),
-      ),
-    );
-  }
-}
-
-class AddNewCoursework extends StatefulWidget {
-  const AddNewCoursework({Key? key}) : super(key: key);
-
-  @override
-  _AddNewCoursework createState() => _AddNewCoursework();
-}
-
-class _AddNewCoursework extends State<AddNewCoursework> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30.0,
-      ),
-      child: Row(
-        children: [
-          // CustomIconButton(
-          //   onTap: () {},
-          //   height: 45,
-          //   width: 45,
-          //   child: const Icon(
-          //     Icons.favorite,
-          //     color: Colors.pink,
-          //     size: 30,
-          //   ),
-          // ),
-          // const SizedBox(
-          //   width: 20,
-          // ),
-          Expanded(
-            child: CustomIconButton(
-              // onTap: () {Get.toNamed(RouteHelper.goto("Teacher","AddCoursework"));print(context.read<UserProvider>().role.toString());},
-              onTap: () {
-                Get.toNamed(RouteHelper.goto(
-                    context.read<UserProvider>().role.toString(),
-                    "AddMaterialNotice"));
-              },
-              // color: kPrimaryColor,
-              color: Colors.green,
-              height: 45,
-              width: 45,
-              child: const Text(
-                "+ New Material Notice",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class MaterialNoticeContainer extends StatelessWidget {
   final Function function;
   final MaterialNoticeModel materialnotice;
@@ -769,6 +600,7 @@ class MaterialNoticeContainer extends StatelessWidget {
       //     MaterialPageRoute(
       //         builder: (context) => const BaseScreen())),
       onTap: () {
+      print("heree" + materialnotice.assigneeslist.toString());
         function(
             MaterialNoticeListDetails(changetab: function, materialnotice: materialnotice));
         // print(coursework.id);
@@ -811,9 +643,7 @@ class MaterialNoticeContainer extends StatelessWidget {
                 // child: Text(coursework.name, style: TextStyle(color: color),),
                 child: Column(children: [
                   Text(materialnotice.title),
-                  Text(materialnotice.content),
-                  // Text( DateFormat('dd-MM-yyy').format(coursework.assigndate)),
-
+                  Text(materialnotice.content)
                 ]),
               ),
               // Text(
@@ -836,12 +666,71 @@ class MaterialNoticeListDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CourseworkListDetails createState() => _CourseworkListDetails();
+  _MaterialNoticeListDetails createState() => _MaterialNoticeListDetails();
 }
 
-class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
+class _MaterialNoticeListDetails extends State<MaterialNoticeListDetails> {
   @override
   Widget build(BuildContext context) {
+  print("coursework assigneeslist" + widget.materialnotice.toString());
+  print("coursework assigneeslist" + widget.materialnotice.content.toString());
+  // print("coursework assigneeslist" + jsonDecode(widget.materialnotice.assigneeslist[5]).map((studentt) {
+  print("coursework assigneeslist" + widget.materialnotice.assigneeslist.map((studentt) {
+        // var filteredAssignees = studentt["assigneeslist"].where((student) {
+        // var studentModel = AssignStudentModel.fromJson(studentt);
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(studentt));
+        // if(studentModel.student.studentid == '${context.watch<UserProvider>().matric}')
+        if(context.watch<UserProvider>().children.contains(studentModel.student.studentid))
+        // {return AssignStudentModel.fromJson(studentt).feedback; } 
+        {return AssignStudentModel.fromJson(jsonDecode(studentt)).feedback; } 
+        
+      // }); 
+      
+      // if (filteredAssignees.isNotEmpty) {
+      //   return CourseworkModel.fromJson(studentt);
+      // } else {
+      //   return null;
+      // }
+
+      
+      })
+      .where((studentt) => studentt != null)
+      // .cast<AssignStudentModel>()
+      .toString());
+
+    
+
+  //     List<AssignStudentModel> feedback = jsonDecode(widget.coursework.assigneeslist[7]).map((studentJson) {
+  //   var studentModel = AssignStudentModel.fromJson(studentJson);
+  //   if (studentModel.student.studentid == 'UK0192') {
+  //     return studentModel;
+  //   }
+  //   return null;
+  // }).where((student) => student != null).cast<AssignStudentModel>().toList();
+
+      // String feedback = jsonDecode(widget.materialnotice.assigneeslist[5]).map((studentt) {
+      String feedback = widget.materialnotice.assigneeslist.map((studentt) {
+        // var filteredAssignees = studentt["assigneeslist"].where((student) {
+        // var studentModel = AssignStudentModel.fromJson(studentt);
+        var studentModel = AssignStudentModel.fromJson(jsonDecode(studentt));
+        // if(studentModel.student.studentid == '${context.watch<UserProvider>().matric}')
+        if(context.watch<UserProvider>().children.contains(studentModel.student.studentid))
+        // {return AssignStudentModel.fromJson(studentt).feedback; } 
+        {return studentModel.feedback; } 
+        
+      // }); 
+      
+      // if (filteredAssignees.isNotEmpty) {
+      //   return CourseworkModel.fromJson(studentt);
+      // } else {
+      //   return null;
+      // }
+
+      
+      })
+      .where((studentt) => studentt != null)
+      .toString();
+
     return
         // Column(children: [
         Expanded(
@@ -853,7 +742,7 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
             children: [
               const Align(
                 child: Text(
-                  'Material Notice Details',
+                  'Coursework Details',
                   // style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
@@ -864,24 +753,12 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
                   height: 35,
                   width: 35,
                   onTap: () => widget
-                      .changetab(CourseworkList(function: widget.changetab)),
+                      .changetab(MaterialNoticeList(function: widget.changetab)),
                 ),
               ),
             ],
           ),
         ),
-        // Padding(
-        //               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        //               child: Row(
-        //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                 children: [
-        //                   Text(
-        //                     "Coursework Details",
-        //                     style: Theme.of(context).textTheme.bodyLarge,
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
         SizedBox(
           height: 20,
         ),
@@ -896,71 +773,84 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
         ),
         Text("Assign Date" +
             DateFormat('dd-MM-yyy').format(widget.materialnotice.assigndate)),
-        Text("Due Date" +
+        Text("Assigned Date" +
             DateFormat('dd-MM-yyy').format(widget.materialnotice.assigndate)),
         // Text("Due Date" +
         //     DateFormat('dd-MM-yyy').format(widget.materialnotice.duedate)),
         Text("Assignees Type" + widget.materialnotice.assigneestype),
-        const CourseworkDetailsTableHeader(),
-        Expanded(
-          child: SizedBox(
-              height: 100,
-              child: SizedBox(
-                  child: FutureBuilder(
-                      future: MongoDatabase.getstudentbymaterialnotice(
-                          widget.materialnotice.id),
-                      builder: (context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          var totalData = snapshot.data.length;
-                          print("Total Data" + totalData.toString());
+        const SizedBox(height: 15,),
+        const Text("coursework feedback " ),
+        (feedback == "()") ? const Text("Feedback is yet to be received",  style: TextStyle(fontSize: 20)) : Text( feedback.substring(1, feedback.length - 1), style: const TextStyle(fontSize: 20)),
+        // Text( feedback.substring(1, feedback.length - 1), style: const TextStyle(fontSize: 20)),
+        // Text("coursework feedback" + feedback.map((e) => e.feedback.toString()).toString()),
+        // const CourseworkDetailsTableHeader(),
+        // Expanded(
+        //   child: SizedBox(
+        //       height: 100,
+        //       child: SizedBox(
+        //           child: FutureBuilder(
+        //               future: MongoDatabase.getstudentbycoursework(
+        //                   widget.coursework.id),
+        //               builder: (context, AsyncSnapshot snapshot) {
+        //                 if (snapshot.hasData) {
+        //                   var totalData = snapshot.data.length;
+        //                   print("Total Data" + totalData.toString());
 
-                          final List<Map<String, dynamic>> items =
-                              snapshot.data!;
+        //                   final List<Map<String, dynamic>> items =
+        //                       snapshot.data!;
 
-                          final List<List<String>> studentsList =
-                              items.map((map) {
-                            return map.values
-                                .map((value) => value.toString())
-                                .toList();
-                          }).toList();
+        //                   final List<List<String>> studentsList =
+        //                       items.map((map) {
+        //                     return map.values
+        //                         .map((value) => value.toString())
+        //                         .toList();
+        //                   }).toList();
 
-                          String studentt = studentsList[0][5].toString();
+        //                   // final List<String> itemNames = items
+        //                   //     .map((map) => map['assigneeslist'][1] as String)
+        //                   //     .toList();
 
-                          var josndecosdedtest = jsonDecode(studentt);
+        //                   // print(items);
+        //                   // print(jsonDecode(studentsList[0][7])[1]);
 
-                          final List<AssignStudentModel> assigneeslist =
-                              (josndecosdedtest as List).map((userData) {
-                            print("inside test" + userData.toString());
+        //                   String studentt = studentsList[0][7].toString();
 
-                            var encodedstssring = jsonEncode(userData);
-                            Map<String, dynamic> assigneeslistsss =
-                                jsonDecode(encodedstssring);
+        //                   var josndecosdedtest = jsonDecode(studentt);
 
-                            print("inside test 32" + userData.toString());
+        //                   final List<AssignStudentModel> assigneeslist =
+        //                       (josndecosdedtest as List).map((userData) {
+        //                     print("inside test" + userData.toString());
 
-                            return AssignStudentModel.fromJson(
-                                assigneeslistsss);
-                          }).toList();
+        //                     var encodedstssring = jsonEncode(userData);
+        //                     Map<String, dynamic> assigneeslistsss =
+        //                         jsonDecode(encodedstssring);
 
-                          return ListView.builder(
-                              itemCount: assigneeslist.length,
-                              itemBuilder: (context, index) {
-                                return MaterialNoticeDetailsStudentContainer(
-                                    assignees: assigneeslist[index]);
-                                // coursework: AssignStudentModel.fromJson(
-                              });
-                        } else {
-                          return Center(
-                            child: Text("No Data Available"),
-                          );
-                        }
-                      }))),
-        ),
+        //                     print("inside test 32" + userData.toString());
+
+        //                     // m.ObjectId id = m.ObjectId.parse("6644659a162faa9b21000000");
+
+        //                     return AssignStudentModel.fromJson(
+        //                         assigneeslistsss);
+        //                   }).toList();
+
+        //                   return ListView.builder(
+        //                       itemCount: assigneeslist.length,
+        //                       itemBuilder: (context, index) {
+        //                         return CourseworkDetailsStudentContainer(
+        //                             assignees: assigneeslist[index]);
+        //                         // coursework: AssignStudentModel.fromJson(
+        //                       });
+        //                 } else {
+        //                   return Center(
+        //                     child: Text("No Data Available"),
+        //                   );
+        //                 }
+        //               }))),
+        // ),
         // SizedBox(
         //   height: 80,
-        //   child: 
-        //   AddFeedbackButton(
-        //     coursework: widget.materialnotice,
+        //   child: AddFeedbackButton(
+        //     coursework: widget.coursework,
         //   ),
         // )
         // Text("Assignees Type" + widget.coursework.assigneestype),
@@ -1023,9 +913,9 @@ class _CourseworkListDetails extends State<MaterialNoticeListDetails> {
   }
 }
 
-class MaterialNoticeDetailsStudentContainer extends StatelessWidget {
+class CourseworkDetailsStudentContainer extends StatelessWidget {
   final AssignStudentModel assignees;
-  const MaterialNoticeDetailsStudentContainer({Key? key, required this.assignees})
+  const CourseworkDetailsStudentContainer({Key? key, required this.assignees})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

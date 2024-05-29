@@ -31,18 +31,19 @@ class MaterialNoticeModel {
       MaterialNoticeModel(
         id: json["_id"],
         teacherid: json["teacherid"],
-        title: json["type"],
+        title: json["title"],
         assigndate: json["assigndate"],
         assigneestype: json["assigneestype"],
         // assigneeslist: json["assigneeslist"],
-        assigneeslist: json.values.map((value) => value.toString()).toList(),
+        // assigneeslist: json.values.map((value) => value.toString()).toList(),
+        assigneeslist: (json["assigneeslist"] as List?)?.map((value) => value.toString()).toList() ?? [],
         content: json["content"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "teacherid": teacherid,
-        "type": title,
+        "title": title,
         "assigndate": assigndate,
         "assigneestype": assigneestype,
         "assigneeslist": assigneeslist,
