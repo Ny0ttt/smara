@@ -189,7 +189,7 @@ class UserContainer extends StatelessWidget {
                 children: [
                   TableRow(
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 221, 225, 225),
                     ),
                     children: [
                       TableCell(
@@ -260,7 +260,7 @@ class TableHeader extends StatelessWidget {
         children: const [
           TableRow(
             decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: Color.fromARGB(255, 204, 232, 246),
             ),
             children: [
               TableCell(
@@ -281,8 +281,8 @@ class TableHeader extends StatelessWidget {
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: 
-                       Text(
+                    child:
+                        Text(
                         'Name',
                         textScaler: TextScaler.linear(0.8),
                         style: TextStyle(fontWeight: FontWeight.bold),

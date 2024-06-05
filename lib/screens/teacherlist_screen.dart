@@ -10,14 +10,11 @@
 // import 'package:education_app/widgets/search_testfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_hub/models/teacher_model.dart';
 
 import '../dbHelper/mongodb.dart';
-import '../models/student_model.dart';
 import '../routes/route_helper.dart';
 import '../widgets/custom_icon_button.dart';
 import '../widgets/search_testfield.dart';
-import 'details_screen.dart';
 
 class TeacherListScreen extends StatefulWidget {
   const TeacherListScreen({Key? key}) : super(key: key);
@@ -251,11 +248,11 @@ class TeacherContainer extends StatelessWidget {
                 children: [
                   TableRow(
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 221, 225, 225),
                     ),
                     children: [
                       TableCell(
-                        child: 
+                        child:
                         
                         Text(
                           // students.name,
@@ -322,7 +319,7 @@ class TableHeader extends StatelessWidget {
         children: const [
           TableRow(
             decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: Color.fromARGB(255, 204, 232, 246),
             ),
             children: [
               TableCell(

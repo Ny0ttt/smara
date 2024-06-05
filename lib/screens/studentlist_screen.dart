@@ -250,7 +250,7 @@ class StudentContainer extends StatelessWidget {
                 children: [
                   TableRow(
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 221, 225, 225)
                     ),
                     children: [
                       TableCell(
@@ -320,7 +320,7 @@ class TableHeader extends StatelessWidget {
         children: const [
           TableRow(
             decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: Color.fromARGB(255, 204, 232, 246),
             ),
             children: [
               TableCell(
