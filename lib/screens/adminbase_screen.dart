@@ -56,7 +56,7 @@ class _AdminBaseScreen extends State<AdminBaseScreen> {
                 icLearningOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Database",
+              label: "List",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
@@ -67,7 +67,7 @@ class _AdminBaseScreen extends State<AdminBaseScreen> {
                 icWishlistOutlined,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Upload Data",
+              label: "Upload",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
